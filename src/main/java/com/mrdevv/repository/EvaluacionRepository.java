@@ -12,4 +12,5 @@ public interface EvaluacionRepository extends JpaRepository<Evaluacion, Long> {
 
     public List<Evaluacion> findAllByUsuarioId(Long id);
 
+    public List<Evaluacion> findTop3ByUsuarioIdOrderByFechaDesc(Long id);
 }

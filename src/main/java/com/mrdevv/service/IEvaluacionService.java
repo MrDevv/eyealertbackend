@@ -12,4 +12,6 @@ public interface IEvaluacionService {
 
 
     ResponseEvaluacionesByUserDTO getEvaluacionesByUser(Long id);
+
+    ResponseEvaluacionesByUserDTO getLastEvaluacionesByUser(Long id);
 }

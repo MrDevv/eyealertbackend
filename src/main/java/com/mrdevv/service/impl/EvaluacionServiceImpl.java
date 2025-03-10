@@ -30,4 +30,10 @@ public class EvaluacionServiceImpl implements IEvaluacionService {
         List<Evaluacion> evaluacions = evaluacionRepository.findAllByUsuarioId(id);
         return EvaluacionMapper.toEvaluacionByUserDTO(evaluacions);
     }
+
+    @Override
+    public ResponseEvaluacionesByUserDTO getLastEvaluacionesByUser(Long id) {
+        List<Evaluacion> evaluacions = evaluacionRepository.findTop3ByUsuarioIdOrderByFechaDesc(id);
+        return EvaluacionMapper.toEvaluacionByUserDTO(evaluacions);
+    }
 }

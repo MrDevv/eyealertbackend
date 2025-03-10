@@ -31,7 +31,13 @@ public class EvaluacionController {
     @GetMapping("/{id}")
     public ResponseEntity<Object> getEvaluacionesByUser(@PathVariable Long id){
         ResponseEvaluacionesByUserDTO evaluacionesByUser = evaluacionService.getEvaluacionesByUser(id);
-        return ResponseHandler.get(TipoResponse.GET, "lista de evaluaciones por usuario", evaluacionesByUser);
+        return ResponseHandler.get(TipoResponse.GET, "lista de evaluaciones del usuario", evaluacionesByUser);
+    }
+
+    @GetMapping("/{id}/last")
+    public ResponseEntity<Object> getLastEvaluacionesByUser(@PathVariable Long id){
+        ResponseEvaluacionesByUserDTO evaluacionesByUser = evaluacionService.getLastEvaluacionesByUser(id);
+        return ResponseHandler.get(TipoResponse.GET, "lista de ultimas 3 evaluacion del usuario", evaluacionesByUser);
     }
 
 }

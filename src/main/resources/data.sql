@@ -7,7 +7,7 @@ INSERT INTO MAE_PREGUNTAS(descripcion) VALUES
     ("¿Tus padres (mamá y/o papá) fueron diagnosticados con glaucoma?"),
     ("¿Has sido diagnosticado con diabetes mellitus?"),
     ("¿Has sido diagnosticado con hipertesión arterial?"),
-    ("¿Ha sido diagnosticado con la enfermedad de ojos catarata?");
+    ("¿Ha sido diagnosticado con catarata?");
     
 INSERT INTO TRS_PREGUNTA_DETALLE VALUES(2, 3), (2, 4),
 										(3, 1), (3, 2),
