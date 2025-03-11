@@ -26,7 +26,7 @@ public class DatoInformativoController {
 
 
     @GetMapping("/aleatorio")
-    public ResponseEntity<Object> get3DatosInformativosAleatorios(){
+    public ResponseEntity<Object> getDatosInformativosAleatorios(){
         List<ResponseDatoInformativoDTO> datosInformativos = datoInformativoService.getDatosInformativoAleatorio();
         return ResponseHandler.get(TipoResponse.GET, "lista de datos informativos aleatorios", datosInformativos);
     }

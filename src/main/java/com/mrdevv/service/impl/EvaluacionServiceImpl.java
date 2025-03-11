@@ -7,6 +7,7 @@ import com.mrdevv.repository.EvaluacionRepository;
 import com.mrdevv.service.IEvaluacionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -20,20 +21,31 @@ public class EvaluacionServiceImpl implements IEvaluacionService {
         this.evaluacionRepository = evaluacionRepository;
     }
 
+    @Transactional(readOnly = true)
     @Override
     public List<Evaluacion> getEvaluaciones() {
         return evaluacionRepository.findAll();
     }
 
+    @Transactional(readOnly = true)
     @Override
     public ResponseEvaluacionesByUserDTO getEvaluacionesByUser(Long id) {
-        List<Evaluacion> evaluacions = evaluacionRepository.findAllByUsuarioId(id);
-        return EvaluacionMapper.toEvaluacionByUserDTO(evaluacions);
+        List<Evaluacion> evaluaciones = evaluacionRepository.findAllByUsuarioId(id);
+        return EvaluacionMapper.toEvaluacionByUserDTO(evaluaciones);
     }
 
+    @Transactional(readOnly = true)
     @Override
     public ResponseEvaluacionesByUserDTO getLastEvaluacionesByUser(Long id) {
-        List<Evaluacion> evaluacions = evaluacionRepository.findTop3ByUsuarioIdOrderByFechaDesc(id);
-        return EvaluacionMapper.toEvaluacionByUserDTO(evaluacions);
+        List<Evaluacion> evaluaciones = evaluacionRepository.findTop3ByUsuarioIdOrderByFechaDesc(id);
+        return EvaluacionMapper.toEvaluacionByUserDTO(evaluaciones);
+    }
+
+
+    @Transactional(readOnly = true)
+    @Override
+    public ResponseEvaluacionesByUserDTO getLastWeekEvaluationsByUser(Long id) {
+        List<Evaluacion> evaluaciones = evaluacionRepository.findLastWeekEvaluationsByUser(id);
+        return EvaluacionMapper.toEvaluacionByUserDTO(evaluaciones);
     }
 }

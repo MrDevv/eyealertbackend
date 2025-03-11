@@ -40,4 +40,10 @@ public class EvaluacionController {
         return ResponseHandler.get(TipoResponse.GET, "lista de ultimas 3 evaluacion del usuario", evaluacionesByUser);
     }
 
+    @GetMapping("/{id}/lastWeek")
+    public ResponseEntity<Object> getLastWeekEvaluationsByUser(@PathVariable Long id){
+        ResponseEvaluacionesByUserDTO lastWeekEvaluationsByUser = evaluacionService.getLastWeekEvaluationsByUser(id);
+        return ResponseHandler.get(TipoResponse.GET, "lista de evaluaciones de la última semana del usuario", lastWeekEvaluationsByUser);
+    }
+
 }
