@@ -32,5 +32,10 @@ INSERT INTO MAE_DATOS_INFORMATIVOS(titulo, descripcion, fuente, fuente_multimedi
     ("El glaucoma de ángulo abierto es el tipo más común.",
     "El glaucoma de ángulo abierto es el tipo más común, muchas personas no presentan síntomas hasta que empiezan a perder la visión.",
     "https://www.nei.nih.gov/espanol/aprenda-sobre-la-salud-ocular/enfermedades-y-afecciones-de-los-ojos/glaucoma/tipos-de-glaucoma",
+    ""),
+    ("Principal causa de ceguera  en el Perú",
+    "El glaucoma es la principal causa de ceguera irreversible en el Perú y el mundo. Se estimó que más del 50% de personas no conocian su condición porque no presenta síntomas, un diagnostico y tratamiendo a tiempo puede evitar la perdida total de la visión.",
+    "https://www.gob.pe/institucion/minsa/noticias/346283-minsa-mas-del-50-de-los-pacientes-que-tiene-glaucoma-no-sabe-que-lo-padece",
     "")
+    
 									

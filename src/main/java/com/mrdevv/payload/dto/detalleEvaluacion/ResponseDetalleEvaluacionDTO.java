@@ -13,7 +13,7 @@ public record ResponseDetalleEvaluacionDTO(
     Long evaluacionId,
     String nombres,
     String apellidos,
-    @JsonFormat(pattern = "dd/MM/yyyy HH:mm:ss")
+    @JsonFormat(pattern = "dd/MM/yyyy HH:mm")
     Date fecha,
     @JsonProperty("tiempo_prediccion")
     Integer tiempoPrediccion,

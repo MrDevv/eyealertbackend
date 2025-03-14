@@ -26,4 +26,10 @@ public class DatoInformativoServiceImpl implements IDatoInformativoService {
         List<DatoInformativo> datoInformativos = datoInformativoRepostory.findTop3Random();
         return DatoInformativoMapper.toResponseDatosInformativosDTO(datoInformativos);
     }
+
+    @Override
+    public List<ResponseDatoInformativoDTO> getAllDatosInformativos() {
+        List<DatoInformativo> datoInformativos = datoInformativoRepostory.findAllDatosInformativos();
+        return DatoInformativoMapper.toResponseDatosInformativosDTO(datoInformativos);
+    }
 }

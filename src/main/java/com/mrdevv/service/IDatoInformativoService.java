@@ -8,4 +8,6 @@ public interface IDatoInformativoService {
 
     public List<ResponseDatoInformativoDTO> getDatosInformativoAleatorio();
 
+    public List<ResponseDatoInformativoDTO> getAllDatosInformativos();
+
 }
