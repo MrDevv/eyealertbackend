@@ -13,6 +13,9 @@ public interface DatoInformativoRepostory extends JpaRepository<DatoInformativo,
     @Query(value = "SELECT * FROM MAE_DATOS_INFORMATIVOS ORDER BY RAND() LIMIT 3", nativeQuery = true)
     List<DatoInformativo> findTop3Random();
 
+    @Query(value = "SELECT * FROM MAE_DATOS_INFORMATIVOS ORDER BY RAND() LIMIT 1", nativeQuery = true)
+    DatoInformativo findDatoInformativoRandom();
+
     @Query(value = "SELECT * FROM MAE_DATOS_INFORMATIVOS ORDER BY DATO_INFORMATIVO_ID DESC", nativeQuery = true)
     List<DatoInformativo> findAllDatosInformativos();
 

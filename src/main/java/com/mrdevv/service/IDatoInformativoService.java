@@ -10,4 +10,6 @@ public interface IDatoInformativoService {
 
     public List<ResponseDatoInformativoDTO> getAllDatosInformativos();
 
+    public ResponseDatoInformativoDTO getDatoInformativoRandom();
+
 }

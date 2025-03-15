@@ -9,6 +9,17 @@ import java.util.List;
 public class DatoInformativoMapper {
 
 
+    public static ResponseDatoInformativoDTO toResponseDatoInformativoDTO(DatoInformativo datoInformativo){
+        return new ResponseDatoInformativoDTO(
+                datoInformativo.getId(),
+                datoInformativo.getTitulo(),
+                datoInformativo.getDescripcion(),
+                datoInformativo.getFuente(),
+                datoInformativo.getFuenteMultimedia()
+        );
+    }
+
+
     public static List<ResponseDatoInformativoDTO> toResponseDatosInformativosDTO(List<DatoInformativo> datosInformativos) {
 
         List<ResponseDatoInformativoDTO> listDatosInformativosDTO = new ArrayList<>();
