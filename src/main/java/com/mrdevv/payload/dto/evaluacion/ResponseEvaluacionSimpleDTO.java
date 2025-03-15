@@ -10,7 +10,7 @@ public record ResponseEvaluacionSimpleDTO(
         @JsonFormat(pattern = "dd/MM/yyyy HH:mm")
         Date fecha,
         @JsonProperty("tiempo_prediccion")
-        Integer tiempoPrediccion,
+        Double tiempoPrediccion,
         String resultado
 ) {
 }

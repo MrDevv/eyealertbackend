@@ -2,12 +2,24 @@ package com.mrdevv.payload.mapper;
 
 import com.mrdevv.model.Evaluacion;
 import com.mrdevv.model.Usuario;
+import com.mrdevv.payload.dto.evaluacion.CreateEvaluationDTO;
 import com.mrdevv.payload.dto.evaluacion.ResponseEvaluacionSimpleDTO;
 import com.mrdevv.payload.dto.evaluacion.ResponseEvaluacionesByUserDTO;
 
 import java.util.List;
 
 public class EvaluacionMapper {
+
+    public static ResponseEvaluacionSimpleDTO toEvaluacionDTO(Evaluacion evaluacion){
+        String resultado = evaluacion.getResultado() == 0 ? "bajo" : "alto";
+
+        return new ResponseEvaluacionSimpleDTO(
+                evaluacion.getId(),
+                evaluacion.getFecha(),
+                evaluacion.getTiempoPrediccion(),
+                resultado
+        );
+    }
 
     public static ResponseEvaluacionesByUserDTO toEvaluacionByUserDTO(List<Evaluacion> evaluacions) {
 
@@ -21,13 +33,7 @@ public class EvaluacionMapper {
 
         List<ResponseEvaluacionSimpleDTO> evaluacionSimpleDTO = evaluacions.stream()
                 .map(evaluacion -> {
-                            String resultado = evaluacion.getResultado() == 0 ? "bajo" : "alto";
-                            return new ResponseEvaluacionSimpleDTO(
-                                    evaluacion.getId(),
-                                    evaluacion.getFecha(),
-                                    evaluacion.getTiempoPrediccion(),
-                                    resultado
-                            );
+                            return toEvaluacionDTO(evaluacion);
                         }
                 ).toList();
 
@@ -37,6 +43,14 @@ public class EvaluacionMapper {
                 apellidos,
                 evaluacionSimpleDTO
         );
+    }
+
+    public static Evaluacion toEvaluacionEntity(CreateEvaluationDTO evaluationDTO){
+        return Evaluacion.builder()
+                .tiempoPrediccion(evaluationDTO.tiempoPrediccion())
+                .resultado(evaluationDTO.resultado())
+                .usuario(Usuario.builder().id(evaluationDTO.usuarioId()).build())
+                .build();
     }
 
 }

@@ -24,7 +24,7 @@ public class Evaluacion {
     @CreationTimestamp
     private Date fecha;
 
-    private Integer tiempoPrediccion;
+    private Double tiempoPrediccion;
 
     private Integer resultado;
 

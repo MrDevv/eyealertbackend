@@ -2,9 +2,12 @@ package com.mrdevv.controller;
 
 import com.mrdevv.model.Evaluacion;
 import com.mrdevv.payload.ResponseHandler;
+import com.mrdevv.payload.dto.evaluacion.CreateEvaluationDTO;
+import com.mrdevv.payload.dto.evaluacion.ResponseEvaluacionSimpleDTO;
 import com.mrdevv.payload.dto.evaluacion.ResponseEvaluacionesByUserDTO;
 import com.mrdevv.service.IEvaluacionService;
 import com.mrdevv.utils.TipoResponse;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -44,6 +47,12 @@ public class EvaluacionController {
     public ResponseEntity<Object> getLastWeekEvaluationsByUser(@PathVariable Long id){
         ResponseEvaluacionesByUserDTO lastWeekEvaluationsByUser = evaluacionService.getLastWeekEvaluationsByUser(id);
         return ResponseHandler.get(TipoResponse.GET, "lista de evaluaciones de la última semana del usuario", lastWeekEvaluationsByUser);
+    }
+
+    @PostMapping
+    public ResponseEntity<Object> crearEvaluacion(@Valid @RequestBody CreateEvaluationDTO evaluationDTO){
+        ResponseEvaluacionSimpleDTO evaluacionSimpleDTO = evaluacionService.createEvaluacion(evaluationDTO);
+        return ResponseHandler.get(TipoResponse.CREATE, "se creo correctamente la evaluación y su detalle", evaluacionSimpleDTO);
     }
 
 }

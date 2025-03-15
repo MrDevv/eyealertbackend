@@ -1,5 +1,10 @@
 package com.mrdevv.payload.mapper;
 
+import com.mrdevv.model.DetalleEvaluacion;
+import com.mrdevv.model.Evaluacion;
+import com.mrdevv.model.Pregunta;
+import com.mrdevv.model.Respuesta;
+import com.mrdevv.payload.dto.detalleEvaluacion.CreateDetailEvaluation;
 import com.mrdevv.payload.dto.detalleEvaluacion.ResponseDetalleEvaluacionDTO;
 import com.mrdevv.payload.dto.detalleEvaluacion.ResponsePreguntaRespuestaSimpleDTO;
 
@@ -55,6 +60,23 @@ public class DetalleEvaluacionMapper {
                 listPreguntasRespuestas
         );
 
+    }
+
+    public static DetalleEvaluacion toDetalleEvaluacionEntity(CreateDetailEvaluation detailEvaluation, Long evaluacionId){
+        Respuesta respuesta = new Respuesta();
+
+        if (detailEvaluation.respuestaId() != null){
+            respuesta.setId(detailEvaluation.respuestaId());
+        }else{
+            respuesta = null;
+        }
+
+        return DetalleEvaluacion.builder()
+                .evaluacion(Evaluacion.builder().id(evaluacionId).build())
+                .pregunta(Pregunta.builder().id(detailEvaluation.preguntaId()).build())
+                .respuesta(respuesta)
+                .respuestaTexto(detailEvaluation.respuestaTexto())
+                .build();
     }
 
 }
