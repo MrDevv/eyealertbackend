@@ -1,7 +1,7 @@
 package com.mrdevv.service.impl;
 
 import com.mrdevv.model.DetalleEvaluacion;
-import com.mrdevv.payload.dto.detalleEvaluacion.CreateDetailEvaluation;
+import com.mrdevv.payload.dto.detalleEvaluacion.CreateDetailEvaluationDTO;
 import com.mrdevv.payload.dto.detalleEvaluacion.ResponseDetalleEvaluacionDTO;
 import com.mrdevv.payload.mapper.DetalleEvaluacionMapper;
 import com.mrdevv.repository.DetalleEvaluacionRepository;
@@ -31,7 +31,7 @@ public class DetalleEvaluacionServiceImpl implements IDetalleEvaluacionService {
 
     @Transactional
     @Override
-    public void saveDetalleEvaluacion(CreateDetailEvaluation detailEvaluation, Long evaluacionId) {
+    public void saveDetalleEvaluacion(CreateDetailEvaluationDTO detailEvaluation, Long evaluacionId) {
         DetalleEvaluacion detalleEvaluacion = DetalleEvaluacionMapper.toDetalleEvaluacionEntity(detailEvaluation, evaluacionId);
         detalleEvaluacionRepository.save(detalleEvaluacion);
     }

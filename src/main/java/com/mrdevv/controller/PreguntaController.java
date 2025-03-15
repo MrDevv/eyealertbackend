@@ -3,6 +3,7 @@ package com.mrdevv.controller;
 import com.mrdevv.model.Pregunta;
 import com.mrdevv.payload.ResponseHandler;
 import com.mrdevv.payload.dto.pregunta.ResponsePreguntasDTO;
+import com.mrdevv.repository.PreguntaRepository;
 import com.mrdevv.service.IPreguntaService;
 import com.mrdevv.utils.TipoResponse;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,7 +26,7 @@ public class PreguntaController {
     }
 
     @GetMapping
-    public ResponseEntity<Object> getPreguntas(){
+    public ResponseEntity<Object> obtenerPreguntas(){
         List<ResponsePreguntasDTO> preguntas = preguntaService.getPreguntas();
         return ResponseHandler.get(TipoResponse.GET, "lista de preguntas", preguntas);
     }

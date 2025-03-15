@@ -6,6 +6,8 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.List;
+
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
@@ -19,4 +21,12 @@ public class Pregunta {
     private Long id;
     private String descripcion;
     private Boolean estado;
+
+    @ManyToMany
+    @JoinTable(
+            name = "TRS_PREGUNTA_DETALLE",
+            joinColumns = @JoinColumn(name = "PREGUNTA_ID"),
+            inverseJoinColumns = @JoinColumn(name = "RESPUESTA_ID")
+    )
+    private List<Respuesta> respuestas;
 }

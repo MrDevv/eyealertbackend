@@ -1,8 +1,7 @@
 package com.mrdevv.payload.dto.evaluacion;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.mrdevv.payload.dto.detalleEvaluacion.CreateDetailEvaluation;
-import jakarta.validation.constraints.NotBlank;
+import com.mrdevv.payload.dto.detalleEvaluacion.CreateDetailEvaluationDTO;
 import jakarta.validation.constraints.NotNull;
 
 import java.util.List;
@@ -20,6 +19,6 @@ public record CreateEvaluationDTO(
         Long usuarioId,
 
         @JsonProperty("detalle_evaluacion")
-        List<CreateDetailEvaluation> detallesEvaluacion
+        List<CreateDetailEvaluationDTO> detallesEvaluacion
 ) {
 }

@@ -22,7 +22,7 @@ public class PreguntaServiceImpl implements IPreguntaService {
 
     @Override
     public List<ResponsePreguntasDTO> getPreguntas() {
-        List<Object[]> preguntasResponse = preguntaRepository.getPreguntas();
-        return PreguntaMapper.toPreguntasDTO(preguntasResponse);
+         List<Pregunta> preguntas = preguntaRepository.findAll();
+        return PreguntaMapper.toPreguntasDTO(preguntas);
     }
 }

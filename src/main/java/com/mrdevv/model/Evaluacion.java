@@ -8,6 +8,8 @@ import lombok.NoArgsConstructor;
 import org.hibernate.annotations.CreationTimestamp;
 
 import java.sql.Date;
+import java.time.LocalDateTime;
+
 
 @Builder
 @Data
@@ -22,7 +24,7 @@ public class Evaluacion {
     private Long id;
 
     @CreationTimestamp
-    private Date fecha;
+    private LocalDateTime fecha;
 
     private Double tiempoPrediccion;
 
