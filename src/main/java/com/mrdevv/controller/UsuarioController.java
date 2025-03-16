@@ -4,6 +4,7 @@ import com.mrdevv.model.Usuario;
 import com.mrdevv.payload.ResponseHandler;
 import com.mrdevv.payload.dto.evaluacion.ResponseEvaluacionesByUserDTO;
 import com.mrdevv.payload.dto.usuario.AuthUsuarioDTO;
+import com.mrdevv.payload.dto.usuario.ResponseUsuarioDTO;
 import com.mrdevv.service.IEvaluacionService;
 import com.mrdevv.service.IUsuarioService;
 import com.mrdevv.utils.TipoResponse;
@@ -35,12 +36,10 @@ public class UsuarioController {
 
     @PostMapping("/auth")
     public ResponseEntity<Object> authUsuario(@Valid @RequestBody AuthUsuarioDTO authUsuarioDTO){
-        Usuario usuario = usuarioService.authUsuario(authUsuarioDTO);
+        ResponseUsuarioDTO usuario = usuarioService.authUsuario(authUsuarioDTO);
         return ResponseHandler.get(TipoResponse.GET, "datos del usuario", usuario);
     }
 
-    //    TODO: arreglar estructurad el endpoint
-//    usuario/{id}/evaluaciones/latest?limit=5
     @GetMapping("/{id}/evaluaciones/latest")
     public ResponseEntity<Object> getLastEvaluacionesByUser(@PathVariable Long id){
         ResponseEvaluacionesByUserDTO evaluacionesByUser = evaluacionService.getLastEvaluacionesByUser(id);

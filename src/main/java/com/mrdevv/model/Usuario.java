@@ -24,4 +24,8 @@ public class Usuario {
 
     private String password;
 
+    @ManyToOne
+    @JoinColumn(name = "ROL_ID")
+    private Rol rol;
+
 }

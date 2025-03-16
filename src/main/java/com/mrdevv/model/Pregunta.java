@@ -22,7 +22,7 @@ public class Pregunta {
     private String descripcion;
     private Boolean estado;
 
-    @ManyToMany
+    @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(
             name = "TRS_PREGUNTA_DETALLE",
             joinColumns = @JoinColumn(name = "PREGUNTA_ID"),
