@@ -19,5 +19,7 @@ public interface IEvaluacionService {
 
     ResponseEvaluacionesByUserDTO getLastWeekEvaluationsByUser(Long id);
 
+    ResponseEvaluacionesByUserDTO getLastMonthEvaluationsByUser(Long id);
+
     ResponseEvaluacionSimpleDTO createEvaluacion(CreateEvaluationDTO evaluationDTO);
 }

@@ -35,7 +35,7 @@ public class EvaluacionServiceImpl implements IEvaluacionService {
     @Transactional(readOnly = true)
     @Override
     public ResponseEvaluacionesByUserDTO getEvaluacionesByUser(Long id) {
-        List<Evaluacion> evaluaciones = evaluacionRepository.findAllByUsuarioId(id);
+        List<Evaluacion> evaluaciones = evaluacionRepository.findAllByUsuarioIdOrderByFechaDesc(id);
         return EvaluacionMapper.toEvaluacionByUserDTO(evaluaciones);
     }
 
@@ -51,6 +51,12 @@ public class EvaluacionServiceImpl implements IEvaluacionService {
     @Override
     public ResponseEvaluacionesByUserDTO getLastWeekEvaluationsByUser(Long id) {
         List<Evaluacion> evaluaciones = evaluacionRepository.findLastWeekEvaluationsByUser(id);
+        return EvaluacionMapper.toEvaluacionByUserDTO(evaluaciones);
+    }
+
+    @Override
+    public ResponseEvaluacionesByUserDTO getLastMonthEvaluationsByUser(Long id) {
+        List<Evaluacion> evaluaciones = evaluacionRepository.findLastMonthEvaluationByUser(id);
         return EvaluacionMapper.toEvaluacionByUserDTO(evaluaciones);
     }
 

@@ -1,3 +1,5 @@
+INSERT INTO MAE_ROLES(descripcion) VALUES("administrador"), ("usuario");
+
 INSERT INTO MAE_RESPUESTAS(descripcion) VALUES("Sí"), ("No"), ("Masculino"), ("Femenino");
 
 INSERT INTO MAE_PREGUNTAS(descripcion) VALUES
