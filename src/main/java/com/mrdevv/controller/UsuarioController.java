@@ -3,8 +3,11 @@ package com.mrdevv.controller;
 import com.mrdevv.model.Usuario;
 import com.mrdevv.payload.ResponseHandler;
 import com.mrdevv.payload.dto.evaluacion.ResponseEvaluacionesByUserDTO;
+import com.mrdevv.payload.dto.usuario.EmailDTO;
 import com.mrdevv.payload.dto.usuario.AuthUsuarioDTO;
+import com.mrdevv.payload.dto.usuario.ResponseCodeDTO;
 import com.mrdevv.payload.dto.usuario.ResponseUsuarioDTO;
+import com.mrdevv.service.IEmailService;
 import com.mrdevv.service.IEvaluacionService;
 import com.mrdevv.service.IUsuarioService;
 import com.mrdevv.utils.TipoResponse;
@@ -21,11 +24,13 @@ public class UsuarioController {
 
     private IUsuarioService usuarioService;
     private IEvaluacionService evaluacionService;
+    private IEmailService emailService;
 
     @Autowired
-    public UsuarioController(IUsuarioService usuarioService, IEvaluacionService evaluacionService){
+    public UsuarioController(IUsuarioService usuarioService, IEvaluacionService evaluacionService, IEmailService emailService){
         this.usuarioService = usuarioService;
         this.evaluacionService = evaluacionService;
+        this.emailService = emailService;
     }
 
     @GetMapping
@@ -64,8 +69,10 @@ public class UsuarioController {
         return ResponseHandler.get(TipoResponse.GET, "lista de evaluaciones de la última semana de un usuario", evaluacionesUltimoMes);
     }
 
-
-
-
+    @PostMapping("/recover-password")
+    public ResponseEntity<Object> enviarEmailReestablecerPassword(@RequestBody EmailDTO emailDTO){
+        ResponseCodeDTO codeDTO = usuarioService.sendCodeEmail(emailDTO);
+        return ResponseHandler.get(TipoResponse.GET, "se envió correctamente el código al correo", codeDTO);
+    }
 
 }
