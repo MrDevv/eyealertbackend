@@ -3,10 +3,7 @@ package com.mrdevv.controller;
 import com.mrdevv.model.Usuario;
 import com.mrdevv.payload.ResponseHandler;
 import com.mrdevv.payload.dto.evaluacion.ResponseEvaluacionesByUserDTO;
-import com.mrdevv.payload.dto.usuario.EmailDTO;
-import com.mrdevv.payload.dto.usuario.AuthUsuarioDTO;
-import com.mrdevv.payload.dto.usuario.ResponseCodeDTO;
-import com.mrdevv.payload.dto.usuario.ResponseUsuarioDTO;
+import com.mrdevv.payload.dto.usuario.*;
 import com.mrdevv.service.IEmailService;
 import com.mrdevv.service.IEvaluacionService;
 import com.mrdevv.service.IUsuarioService;
@@ -43,6 +40,12 @@ public class UsuarioController {
     public ResponseEntity<Object> authUsuario(@Valid @RequestBody AuthUsuarioDTO authUsuarioDTO){
         ResponseUsuarioDTO usuario = usuarioService.authUsuario(authUsuarioDTO);
         return ResponseHandler.get(TipoResponse.GET, "datos del usuario", usuario);
+    }
+
+    @PostMapping
+    public ResponseEntity<Object> crearUsuario(@Valid @RequestBody CreateUsuarioDTO usuarioDTO){
+        ResponseUsuarioDTO usuario = usuarioService.createUsuario(usuarioDTO);
+        return ResponseHandler.get(TipoResponse.CREATE, "usuario creado", usuario);
     }
 
     @GetMapping("/{id}/evaluaciones/latest")
