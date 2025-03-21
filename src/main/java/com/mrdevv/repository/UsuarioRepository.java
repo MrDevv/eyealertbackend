@@ -6,9 +6,11 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
+import java.util.Optional;
+
 @Repository
 public interface UsuarioRepository extends JpaRepository<Usuario, Long> {
 
     @Query(value = "SELECT * FROM MAE_USUARIOS WHERE email = :email AND password = :password", nativeQuery = true)
-    Usuario authUsuario(@Param("email") String email, @Param("password") String password);
+    Optional<Usuario> authUsuario(@Param("email") String email, @Param("password") String password);
 }

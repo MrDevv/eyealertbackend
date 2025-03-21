@@ -1,6 +1,8 @@
 package com.mrdevv.service.impl;
 
+import com.mrdevv.model.Rol;
 import com.mrdevv.model.Usuario;
+import com.mrdevv.payload.dto.rol.ResponseRolDTO;
 import com.mrdevv.payload.dto.usuario.*;
 import com.mrdevv.payload.mapper.RolMapper;
 import com.mrdevv.payload.mapper.UsuarioMapper;
@@ -35,14 +37,19 @@ public class UsuarioServiceImpl implements IUsuarioService {
 
     @Override
     public ResponseUsuarioDTO authUsuario(AuthUsuarioDTO authUsuarioDTO) {
-        Usuario usuario = usuarioRepository.authUsuario(authUsuarioDTO.email(), authUsuarioDTO.password());
+        Usuario usuario = usuarioRepository.authUsuario(authUsuarioDTO.email(), authUsuarioDTO.password()).orElse(null);
+        if (usuario == null){
+            return null;
+        }
         return UsuarioMapper.toUsuarioDTO(usuario);
     }
 
     @Transactional
     @Override
     public ResponseUsuarioDTO createUsuario(CreateUsuarioDTO usuarioDTO) {
-        Usuario usuario = usuarioRepository.save(UsuarioMapper.toUsuarioEntity(usuarioDTO, rolService.getIdRolUsuario()));
+        ResponseRolDTO rolDTO = rolService.getIdRolUsuario();
+        Usuario usuario = usuarioRepository.save(UsuarioMapper.toUsuarioEntity(usuarioDTO, rolDTO));
+        usuario.setRol(RolMapper.toRolEntity(rolDTO));
         return UsuarioMapper.toUsuarioDTO(usuario);
     }
 
