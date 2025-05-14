@@ -17,6 +17,8 @@ public interface IUsuarioService {
 
     void updateEstadoCuestionarioCompletado(Long usuarioId);
 
+    void updatePassword(String newPassword, Long usuarioId);
+
     void existsByEmail(String email);
 
 }

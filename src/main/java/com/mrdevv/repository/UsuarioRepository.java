@@ -19,5 +19,11 @@ public interface UsuarioRepository extends JpaRepository<Usuario, Long> {
     @Query(value = "UPDATE MAE_USUARIOS SET CUESTIONARIO_CONOCIMIENTOS_COMPLETADO = 1 WHERE USUARIO_ID = :usuario_id", nativeQuery = true)
     void updateEstadoCuestionarioCompletado(@Param("usuario_id") Long usuarioId);
 
+    @Modifying
+    @Query(value = "UPDATE MAE_USUARIOS SET PASSWORD = :new_password WHERE USUARIO_ID = :usuario_id", nativeQuery = true)
+    void updatePassword(@Param("new_password") String password, @Param("usuario_id") Long usuarioId);
+
+    Optional<Usuario> findByEmail(String email);
+
     boolean existsByEmail(String email);
 }

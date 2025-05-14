@@ -16,7 +16,8 @@ public class GlobalExceptionHandler {
 
     @ExceptionHandler({
             Exception.class,
-            ObjectDuplicateException.class
+            ObjectDuplicateException.class,
+            ObjectNotFoundException.class,
     })
     public ResponseEntity<ResponseError> handlerAllException(Exception exception, HttpServletRequest request, HttpServletResponse response){
         ZoneId zoneId = ZoneId.of("America/Lima");
@@ -24,10 +25,28 @@ public class GlobalExceptionHandler {
 
         if (exception instanceof ObjectDuplicateException objectDuplicateExcepction){
             return handlerDataIntegrityViolationException(objectDuplicateExcepction, request, response, localDateTime);
+        }else if (exception instanceof ObjectNotFoundException objectNotFoundException){
+            return handlerObjectNotFoundException(objectNotFoundException, request, response, localDateTime);
         }
 
         return handlerException(exception, request, response, localDateTime);
+    }
 
+    public ResponseEntity<ResponseError> handlerObjectNotFoundException(ObjectNotFoundException objectNotFoundException, HttpServletRequest request, HttpServletResponse response, LocalDateTime localDateTime){
+        int httpStatus = HttpStatus.NOT_FOUND.value();
+
+        ResponseError responseError = new ResponseError(
+                "Failed",
+                httpStatus,
+                request.getRequestURL().toString(),
+                request.getMethod(),
+                objectNotFoundException.getMessageFront(),
+                objectNotFoundException.getMessage(),
+                localDateTime,
+                null
+        );
+
+        return ResponseEntity.status(httpStatus).body(responseError);
     }
 
     private ResponseEntity<ResponseError> handlerDataIntegrityViolationException(ObjectDuplicateException objectDuplicateExcepction, HttpServletRequest request, HttpServletResponse response, LocalDateTime localDateTime) {

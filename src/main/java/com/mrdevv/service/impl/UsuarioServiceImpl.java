@@ -1,6 +1,7 @@
 package com.mrdevv.service.impl;
 
 import com.mrdevv.exception.ObjectDuplicateException;
+import com.mrdevv.exception.ObjectNotFoundException;
 import com.mrdevv.model.Rol;
 import com.mrdevv.model.Usuario;
 import com.mrdevv.payload.dto.rol.ResponseRolDTO;
@@ -25,7 +26,7 @@ public class UsuarioServiceImpl implements IUsuarioService {
     private IRolService rolService;
 
     @Autowired
-    public UsuarioServiceImpl(UsuarioRepository usuarioRepository, IEmailService emailService, IRolService rolService){
+    public UsuarioServiceImpl(UsuarioRepository usuarioRepository, IEmailService emailService, IRolService rolService) {
         this.usuarioRepository = usuarioRepository;
         this.emailService = emailService;
         this.rolService = rolService;
@@ -39,7 +40,7 @@ public class UsuarioServiceImpl implements IUsuarioService {
     @Override
     public ResponseUsuarioDTO authUsuario(AuthUsuarioDTO authUsuarioDTO) {
         Usuario usuario = usuarioRepository.authUsuario(authUsuarioDTO.email(), authUsuarioDTO.password()).orElse(null);
-        if (usuario == null){
+        if (usuario == null) {
             return null;
         }
         return UsuarioMapper.toUsuarioDTO(usuario);
@@ -58,10 +59,15 @@ public class UsuarioServiceImpl implements IUsuarioService {
 
     @Override
     public ResponseCodeDTO sendCodeEmail(EmailDTO emailDTO) {
+        Usuario usuario = usuarioRepository.findByEmail(emailDTO.email())
+                .orElseThrow(() -> new ObjectNotFoundException(
+                        "El email " + emailDTO.email() + "  no se encontró en la base de datos.",
+                        "El email no está asociado a ninguna cuenta."));
+
         int code = (int) (Math.random() * 90000) + 100000;
         String message = "Su código es: " + code;
         emailService.sendCodeEmail(emailDTO.email(), "Código para reestablecer contraseña - EyeAlert", message);
-        return new ResponseCodeDTO(code);
+        return new ResponseCodeDTO(code, usuario.getId());
     }
 
     @Transactional
@@ -70,11 +76,17 @@ public class UsuarioServiceImpl implements IUsuarioService {
         usuarioRepository.updateEstadoCuestionarioCompletado(usuarioId);
     }
 
+    @Transactional
+    @Override
+    public void updatePassword(String newPassword, Long usuarioId) {
+        usuarioRepository.updatePassword(newPassword, usuarioId);
+    }
+
     @Override
     public void existsByEmail(String email) {
-        if (usuarioRepository.existsByEmail(email)){
+        if (usuarioRepository.existsByEmail(email)) {
             throw new ObjectDuplicateException(
-                    "El usuario con email "+ email + " ya se encuentra registrado.",
+                    "El usuario con email " + email + " ya se encuentra registrado.",
                     "Entrada duplicada " + email + " para la llave mae_usuario.EMAIL."
             );
         }
