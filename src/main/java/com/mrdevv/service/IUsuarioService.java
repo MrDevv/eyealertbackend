@@ -15,4 +15,8 @@ public interface IUsuarioService {
 
     ResponseCodeDTO sendCodeEmail(EmailDTO emailDTO);
 
+    void updateEstadoCuestionarioCompletado(Long usuarioId);
+
+    void existsByEmail(String email);
+
 }

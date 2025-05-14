@@ -2,11 +2,15 @@ INSERT INTO MAE_ROLES(descripcion) VALUES("administrador"), ("usuario");
 
 INSERT INTO MAE_RESPUESTAS(descripcion) VALUES("Sí"), ("No"), ("Masculino"), ("Femenino");
 
+INSERT INTO MAE_USUARIOS(nombres, apellidos, email, password, rol_id) values("Miguel Angel", "Vega Perez", "miguelvegap10@gmail.com", "1234", 1);
+
+INSERT INTO CONFIG_CUESTIONARIO(dias_espera) VALUES(14);
+
 INSERT INTO MAE_PREGUNTAS(descripcion) VALUES
 	("Ingresa tu edad"),
     ("Selecciona tu genero"),
     ("¿Te han diagnoticado con presión intraocular (PIO) elevada?"),
-    ("¿Tus padres (mamá y/o papá) fueron diagnosticados con glaucoma?"),
+    ("¿Tus padres (mamá o papá) fueron diagnosticados con glaucoma?"),
     ("¿Has sido diagnosticado con diabetes mellitus?"),
     ("¿Has sido diagnosticado con hipertesión arterial?"),
     ("¿Has sido diagnosticado con catarata?");
@@ -28,7 +32,7 @@ INSERT INTO MAE_DATOS_INFORMATIVOS(titulo, descripcion, fuente, fuente_multimedi
     "https://www.aao.org/salud-ocular/enfermedades/que-es-la-glaucoma",
     "https://youtu.be/dSN_yBSelWU?si=hkmtDCoSehpcaIrO"),
     ("Tipos de glaucoma",
-    "Los principales tipos de glaucoma son el glaucoma de ángulo abierto y el glaucomaa de ángulo cerrado, cada tipo de glaucoma es diferente. Sin embargo, la mayoría no presenta síntomas tempranos, por lo que es importante hacerse exámenes con regularidad.",
+    "Los principales tipos de glaucoma son el glaucoma de ángulo abierto y el glaucoma de ángulo cerrado, cada tipo de glaucoma es diferente. Sin embargo, la mayoría no presenta síntomas tempranos, por lo que es importante hacerse exámenes con regularidad.",
     "https://www.nei.nih.gov/espanol/aprenda-sobre-la-salud-ocular/enfermedades-y-afecciones-de-los-ojos/glaucoma/tipos-de-glaucoma",
     ""),
     ("El glaucoma de ángulo abierto es el tipo más común.",
@@ -38,6 +42,18 @@ INSERT INTO MAE_DATOS_INFORMATIVOS(titulo, descripcion, fuente, fuente_multimedi
     ("Principal causa de ceguera  en el Perú",
     "El glaucoma es la principal causa de ceguera irreversible en el Perú y el mundo. Se estimó que más del 50% de personas no conocian su condición porque no presenta síntomas, un diagnostico y tratamiendo a tiempo puede evitar la perdida total de la visión.",
     "https://www.gob.pe/institucion/minsa/noticias/346283-minsa-mas-del-50-de-los-pacientes-que-tiene-glaucoma-no-sabe-que-lo-padece",
+    ""),
+	("No existe cura para el glaucoma",
+    "El glaucoma es una enfermedad que no tiene cura, la perdida de visión es irreversible. Sin embargo, el tratamiento temprano puede prevenir la perdida total de la visión.",
+    "https://glaucoma.org/es/articles/datos-y-estadisticas-sobre-el-glaucoma",
+    ""),
+    ("El glaucoma puede no presentar síntomas iniciales",
+    "Muchas personas con glaucoma no experimentan síntomas tempranos, la pérdida de visión suele ser gradual y puede no notarse hasta etapas avanzadas.",
+    "https://glaucoma.org/es/articles/datos-y-estadisticas-sobre-el-glaucoma",
+    ""),
+    ("La presión intraocular elevada es un factor de riesgo significativo",
+    "Aunque no todas las personas con presión intraocular alta desarrollan glaucoma, es un factor de riesgo importante para la enfermedad.",
+    "https://www.mayoclinic.org/es/diseases-conditions/glaucoma/symptoms-causes/syc-20372839",
     "")
     
 									

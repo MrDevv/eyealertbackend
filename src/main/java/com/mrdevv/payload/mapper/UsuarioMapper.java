@@ -14,17 +14,20 @@ public class UsuarioMapper {
                 usuario.getNombres(),
                 usuario.getApellidos(),
                 usuario.getEmail(),
-                usuario.getRol().getDescripcion()
+                usuario.getRol().getDescripcion(),
+                usuario.getCuestionarioCompleado(),
+                usuario.getFecha()
         );
     }
 
-    public static Usuario toUsuarioEntity(CreateUsuarioDTO usuarioDTO, ResponseRolDTO rolDTO){
+    public static Usuario toUsuarioEntity(CreateUsuarioDTO usuarioDTO, ResponseRolDTO rolDTO, Boolean cuestionarioCompletado){
         return Usuario.builder()
                 .nombres(usuarioDTO.nombres())
                 .apellidos(usuarioDTO.apellidos())
                 .email(usuarioDTO.email())
                 .password(usuarioDTO.password())
                 .rol(Rol.builder().id(rolDTO.id()).build())
+                .cuestionarioCompleado(cuestionarioCompletado)
                 .build();
     }
 }

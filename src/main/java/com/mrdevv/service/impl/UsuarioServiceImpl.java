@@ -1,5 +1,6 @@
 package com.mrdevv.service.impl;
 
+import com.mrdevv.exception.ObjectDuplicateException;
 import com.mrdevv.model.Rol;
 import com.mrdevv.model.Usuario;
 import com.mrdevv.payload.dto.rol.ResponseRolDTO;
@@ -48,7 +49,9 @@ public class UsuarioServiceImpl implements IUsuarioService {
     @Override
     public ResponseUsuarioDTO createUsuario(CreateUsuarioDTO usuarioDTO) {
         ResponseRolDTO rolDTO = rolService.getIdRolUsuario();
-        Usuario usuario = usuarioRepository.save(UsuarioMapper.toUsuarioEntity(usuarioDTO, rolDTO));
+        Boolean cuestionarioCompleado = false;
+        existsByEmail(usuarioDTO.email());
+        Usuario usuario = usuarioRepository.save(UsuarioMapper.toUsuarioEntity(usuarioDTO, rolDTO, cuestionarioCompleado));
         usuario.setRol(RolMapper.toRolEntity(rolDTO));
         return UsuarioMapper.toUsuarioDTO(usuario);
     }
@@ -59,5 +62,21 @@ public class UsuarioServiceImpl implements IUsuarioService {
         String message = "Su código es: " + code;
         emailService.sendCodeEmail(emailDTO.email(), "Código para reestablecer contraseña - EyeAlert", message);
         return new ResponseCodeDTO(code);
+    }
+
+    @Transactional
+    @Override
+    public void updateEstadoCuestionarioCompletado(Long usuarioId) {
+        usuarioRepository.updateEstadoCuestionarioCompletado(usuarioId);
+    }
+
+    @Override
+    public void existsByEmail(String email) {
+        if (usuarioRepository.existsByEmail(email)){
+            throw new ObjectDuplicateException(
+                    "El usuario con email "+ email + " ya se encuentra registrado.",
+                    "Entrada duplicada " + email + " para la llave mae_usuario.EMAIL."
+            );
+        }
     }
 }

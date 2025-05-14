@@ -3,6 +3,9 @@ package com.mrdevv.model;
 
 import jakarta.persistence.*;
 import lombok.*;
+import org.hibernate.annotations.CreationTimestamp;
+
+import java.time.LocalDateTime;
 
 @Builder
 @AllArgsConstructor
@@ -24,8 +27,14 @@ public class Usuario {
 
     private String password;
 
+    @Column(name = "CUESTIONARIO_CONOCIMIENTOS_COMPLETADO")
+    private Boolean cuestionarioCompleado;
+
     @ManyToOne
     @JoinColumn(name = "ROL_ID")
     private Rol rol;
+
+    @CreationTimestamp
+    private LocalDateTime fecha;
 
 }
