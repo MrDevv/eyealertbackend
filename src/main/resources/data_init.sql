@@ -1,8 +1,8 @@
-INSERT INTO MAE_ROLES(descripcion) VALUES("administrador"), ("usuario");
+INSERT INTO mae_roles(descripcion) VALUES("administrador"), ("usuario");
 
-INSERT INTO MAE_RESPUESTAS(descripcion) VALUES("Sí"), ("No"), ("Masculino"), ("Femenino");
+INSERT INTO mae_respuestas(descripcion) VALUES("Sí"), ("No"), ("Masculino"), ("Femenino");
 
-INSERT INTO MAE_USUARIOS(nombres, apellidos, email, password, rol_id) values("Miguel Angel", "Vega Perez", "miguelvegap10@gmail.com", "1234", 1);
+INSERT INTO mae_usuarios(nombres, apellidos, email, password, rol_id) values("Miguel Angel", "Vega Perez", "miguelvegap10@gmail.com", "1234", 1);
 
 INSERT INTO CONFIG_CUESTIONARIO(dias_espera) VALUES(14);
 
