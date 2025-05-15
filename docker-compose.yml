@@ -10,6 +10,7 @@ services:
       DB_URL: jdbc:mysql://eye_alert:3306/eyealert?createDatabaseIfNotExist=true
       DB_USER_NAME: root
       DB_PASSWORD: admin
+      JAVA_TOOL_OPTIONS: -Duser.timezone=America/Lima
     restart: always
     depends_on:
       eye_alert:
