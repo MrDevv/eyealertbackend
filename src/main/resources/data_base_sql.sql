@@ -21,6 +21,8 @@ create table mae_usuarios (
 create table trs_evaluaciones(
 	evaluacion_id int not null auto_increment,
     fecha datetime not null default current_timestamp,
+    tiempo_prediccion_inicio datetime(3) not null,
+    tiempo_prediccion_fin datetime(3) not null,
     tiempo_prediccion decimal(9,2) not null,
     resultado tinyint(1) not null,
     resultado_acertado tinyint(1),

@@ -47,6 +47,8 @@ public class EvaluacionMapper {
 
     public static Evaluacion toEvaluacionEntity(CreateEvaluationDTO evaluationDTO){
         return Evaluacion.builder()
+                .tiempoPrediccionInicio(evaluationDTO.tipoPrediccionInicio())
+                .tiempoPrediccionFin(evaluationDTO.tipoPrediccionFin())
                 .tiempoPrediccion(evaluationDTO.tiempoPrediccion())
                 .resultado(evaluationDTO.resultado())
                 .usuario(Usuario.builder().id(evaluationDTO.usuarioId()).build())

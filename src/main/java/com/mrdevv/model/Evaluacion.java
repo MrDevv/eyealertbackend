@@ -26,6 +26,12 @@ public class Evaluacion {
     @CreationTimestamp
     private LocalDateTime fecha;
 
+    @Column(name = "tiempo_prediccion_inicio")
+    private LocalDateTime tiempoPrediccionInicio;
+
+    @Column(name = "tiempo_prediccion_fin")
+    private LocalDateTime tiempoPrediccionFin;
+
     private Double tiempoPrediccion;
 
     private Integer resultado;

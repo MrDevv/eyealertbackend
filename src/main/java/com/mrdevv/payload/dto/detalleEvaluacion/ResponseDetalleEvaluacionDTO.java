@@ -16,9 +16,17 @@ public record ResponseDetalleEvaluacionDTO(
     String apellidos,
     @JsonFormat(pattern = "dd/MM/yyyy HH:mm")
     LocalDateTime fecha,
+    @JsonProperty("tiempo_prediccion_inicio")
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss.SSS")
+    LocalDateTime tiempoPrediccionInicio,
+    @JsonProperty("tiempo_prediccion_fin")
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss.SSS")
+    LocalDateTime tiempoPrediccionFin,
     @JsonProperty("tiempo_prediccion")
     Integer tiempoPrediccion,
     String resultado,
+    @JsonProperty("resultado_especialista")
+    String resultadoEspecialista,
     List<ResponsePreguntaRespuestaSimpleDTO> listPreguntaRespuesta
 ) {
 }

@@ -29,20 +29,28 @@ public class DetalleEvaluacionMapper {
         Long id = ((Number) evaluaciones.get(0)[0]).longValue();
         Long evaluacionId = ((Number) evaluaciones.get(0)[1]).longValue();
         LocalDateTime fecha = ((Timestamp) evaluaciones.get(0)[2]).toLocalDateTime();
-        Integer tiempoPrediccion = ((Number) evaluaciones.get(0)[3]).intValue();
-        String resultado = (Boolean) evaluaciones.get(0)[4] ? "alto" : "bajo";
-        String nombres = evaluaciones.get(0)[5].toString();
-        String apellidos = evaluaciones.get(0)[6].toString();
+        LocalDateTime tiempoPrediccionInicio = ((Timestamp) evaluaciones.get(0)[3]).toLocalDateTime();
+        LocalDateTime tiempoPrediccionFin = ((Timestamp) evaluaciones.get(0)[4]).toLocalDateTime();
+        Integer tiempoPrediccion = ((Number) evaluaciones.get(0)[5]).intValue();
+        String resultado = (Boolean) evaluaciones.get(0)[6] ? "alto" : "bajo";
+        String resultadoEspecialista;
+        String nombres = evaluaciones.get(0)[8].toString();
+        String apellidos = evaluaciones.get(0)[9].toString();
 
+        if (evaluaciones.get(0)[7]!=null){
+            resultadoEspecialista = (Boolean) evaluaciones.get(0)[7] ? "acertado" : "no acertado";
+        }else{
+            resultadoEspecialista = "pediente";
+        }
 
         listPreguntasRespuestas = evaluaciones.stream().map(evaluacion -> {
-                    String pregunta = evaluacion[7].toString();
+                    String pregunta = evaluacion[10].toString();
                     String respuesta;
 
-                    if (evaluacion[8] != null) {
-                        respuesta = evaluacion[8].toString();
+                    if (evaluacion[11] != null) {
+                        respuesta = evaluacion[11].toString();
                     }else{
-                        respuesta = evaluacion[9].toString();
+                        respuesta = evaluacion[12].toString();
                     }
 
                     return new ResponsePreguntaRespuestaSimpleDTO(
@@ -59,8 +67,11 @@ public class DetalleEvaluacionMapper {
                 nombres,
                 apellidos,
                  fecha,
+                tiempoPrediccionInicio,
+                tiempoPrediccionFin,
                 tiempoPrediccion,
                 resultado,
+                resultadoEspecialista,
                 listPreguntasRespuestas
         );
 
