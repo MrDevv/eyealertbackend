@@ -4,9 +4,9 @@ INSERT INTO mae_respuestas(descripcion) VALUES("Sí"), ("No"), ("Masculino"), ("
 
 INSERT INTO mae_usuarios(nombres, apellidos, email, password, rol_id) values("Miguel Angel", "Vega Perez", "miguelvegap10@gmail.com", "1234", 1);
 
-INSERT INTO CONFIG_CUESTIONARIO(dias_espera) VALUES(14);
+INSERT INTO config_cuestionario(dias_espera) VALUES(7);
 
-INSERT INTO MAE_PREGUNTAS(descripcion) VALUES
+INSERT INTO mae_preguntas(descripcion) VALUES
 	("Ingresa tu edad"),
     ("Selecciona tu genero"),
     ("¿Te han diagnoticado con presión intraocular (PIO) elevada?"),
@@ -15,7 +15,7 @@ INSERT INTO MAE_PREGUNTAS(descripcion) VALUES
     ("¿Has sido diagnosticado con hipertesión arterial?"),
     ("¿Has sido diagnosticado con catarata?");
     
-INSERT INTO TRS_PREGUNTA_DETALLE VALUES(2, 3), (2, 4),
+INSERT INTO trs_pregunta_detalle VALUES(2, 3), (2, 4),
 										(3, 1), (3, 2),
                                         (4, 1), (4, 2),
                                         (5, 1), (5, 2),

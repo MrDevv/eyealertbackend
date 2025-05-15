@@ -1,109 +1,97 @@
-CREATE DATABASE eyealert;
 
-use eyealert;
-
-CREATE TABLE MAE_ROLES(
-	ROL_ID INT NOT NULL AUTO_INCREMENT,
-    DESCRIPCION VARCHAR(20) NOT NULL,
-    PRIMARY KEY(ROL_ID)
+CREATE TABLE mae_roles(
+	rol_id int not null auto_increment,
+    descripcion varchar(20) not null,
+    primary key(rol_id)
 );
 
-CREATE TABLE MAE_USUARIOS(
-	USUARIO_ID INT AUTO_INCREMENT,
-    NOMBRES VARCHAR(100) NOT NULL,
-    APELLIDOS VARCHAR(100) NOT NULL,
-    EMAIL VARCHAR(255) NOT NULL UNIQUE,
-    PASSWORD VARCHAR(50) NOT NULL,
-    CUESTIONARIO_CONOCIMIENTOS_COMPLETADO TINYINT(1) NOT NULL DEFAULT 0,
-    ROL_ID INT NOT NULL,
-	FECHA DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
-    PRIMARY KEY(USUARIO_ID),
-    FOREIGN KEY(ROL_ID) REFERENCES MAE_ROLES(ROL_ID)
+create table mae_usuarios (
+	usuario_id int not null auto_increment,
+    nombres varchar(100) not null,
+    apellidos varchar(100) not null,
+    email varchar(255) not null unique,
+    password varchar(50) not null,
+    cuestionario_conocimientos_completado tinyint(1) not null default 0,
+    rol_id int not null,
+	fecha datetime not null default current_timestamp,
+    primary key (usuario_id),
+    foreign key (rol_id) references mae_roles(rol_id)
 );
 
-CREATE TABLE TRS_EVALUACIONES(
-	EVALUACION_ID INT AUTO_INCREMENT,
-    FECHA DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
-    TIEMPO_PREDICCION DECIMAL(9,2) NOT NULL,
-    RESULTADO TINYINT(1) NOT NULL,
-    RESULTADO_ACERTADO TINYINT(1),
-    USUARIO_ID INT NOT NULL,
-    PRIMARY KEY(EVALUACION_ID),
-    FOREIGN KEY(USUARIO_ID) references MAE_USUARIOS(USUARIO_ID)
+create table trs_evaluaciones(
+	evaluacion_id int not null auto_increment,
+    fecha datetime not null default current_timestamp,
+    tiempo_prediccion decimal(9,2) not null,
+    resultado tinyint(1) not null,
+    resultado_acertado tinyint(1),
+    usuario_id int not null,
+    primary key(evaluacion_id),
+    foreign key(usuario_id) references mae_usuarios(usuario_id)
 );
 
-CREATE TABLE MAE_PREGUNTAS(
-	PREGUNTA_ID INT NOT NULL AUTO_INCREMENT,
-    DESCRIPCION VARCHAR(255) NOT NULL,
-    ESTADO TINYINT(1) NOT NULL DEFAULT 1,
-    PRIMARY KEY(PREGUNTA_ID)
+create table mae_preguntas(
+	pregunta_id int not null auto_increment,
+    descripcion varchar(255) not null,
+    estado tinyint(1) not null default 1,
+    primary key(pregunta_id)
 );
 
-CREATE TABLE MAE_RESPUESTAS(
-	RESPUESTA_ID INT NOT NULL AUTO_INCREMENT,
-    DESCRIPCION VARCHAR(20) NOT NULL UNIQUE,
-    PRIMARY KEY(RESPUESTA_ID)
+create table mae_respuestas(
+	respuesta_id int not null auto_increment,
+    descripcion varchar(20) not null unique,
+    primary key(respuesta_id)
 );
 
-CREATE TABLE TRS_PREGUNTA_DETALLE(
-    PREGUNTA_ID INT NOT NULL,
-    RESPUESTA_ID INT NOT NULL,
-    PRIMARY KEY(PREGUNTA_ID, RESPUESTA_ID),
-    FOREIGN KEY(PREGUNTA_ID) references MAE_PREGUNTAS(PREGUNTA_ID),
-    FOREIGN KEY(RESPUESTA_ID) references MAE_RESPUESTAS(RESPUESTA_ID)
+create table trs_pregunta_detalle(
+    pregunta_id int not null,
+    respuesta_id int not null,
+    primary key(pregunta_id, respuesta_id),
+    foreign key(pregunta_id) references mae_preguntas(pregunta_id),
+    foreign key(respuesta_id) references mae_respuestas(respuesta_id)
 );
 
-CREATE TABLE TRD_DETALLE_EVALUACION(
-	DETALLE_EVALUACION_ID INT NOT NULL AUTO_INCREMENT,
-	EVALUACION_ID INT NOT NULL,
-    PREGUNTA_ID INT NOT NULL,
-    RESPUESTA_ID INT NULL,
-    RESPUESTA_TEXTO VARCHAR(3),
-    PRIMARY KEY(DETALLE_EVALUACION_ID),
-    FOREIGN KEY(EVALUACION_ID) references TRS_EVALUACIONES(EVALUACION_ID),
-    FOREIGN KEY(PREGUNTA_ID) references MAE_PREGUNTAS(PREGUNTA_ID),
-    FOREIGN KEY(RESPUESTA_ID) references MAE_RESPUESTAS(RESPUESTA_ID)
+create table trd_detalle_evaluacion(
+	detalle_evaluacion_id int not null auto_increment,
+	evaluacion_id int not null,
+    pregunta_id int not null,
+    respuesta_id int null,
+    respuesta_texto varchar(3),
+    primary key(detalle_evaluacion_id),
+    foreign key(evaluacion_id) references trs_evaluaciones(evaluacion_id),
+    foreign key(pregunta_id) references mae_preguntas(pregunta_id),
+    foreign key(respuesta_id) references mae_respuestas(respuesta_id)
 );
 
-CREATE TABLE MAE_DATOS_INFORMATIVOS(
-	DATO_INFORMATIVO_ID INT NOT NULL AUTO_INCREMENT,
-    TITULO VARCHAR(100) NOT NULL,
-    DESCRIPCION VARCHAR(255) NOT NULL,
-    FUENTE LONGTEXT NOT NULL,
-    FUENTE_MULTIMEDIA LONGTEXT,
-    PRIMARY KEY(DATO_INFORMATIVO_ID)
+create table mae_datos_informativos(
+	dato_informativo_id int not null auto_increment,
+    titulo varchar(100) not null,
+    descripcion varchar(255) not null,
+    fuente longtext not null,
+    fuente_multimedia longtext,
+    primary key(dato_informativo_id)
 );
 
-CREATE TABLE CUESTIONARIO_CONOCIMIENTOS(
-	CUESTIONARIO_CONOCIMIENTOS_ID INT NOT NULL AUTO_INCREMENT,    
-	FECHA DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
-	USUARIO_ID INT NOT NULL,
-    PUNTAJE_OBTENIDO INT NOT NULL,
-    PRIMARY KEY(CUESTIONARIO_CONOCIMIENTOS_ID),
-    FOREIGN KEY(USUARIO_ID) references MAE_USUARIOS(USUARIO_ID)
+create table cuestionario_conocimientos(
+	cuestionario_conocimientos_id int not null auto_increment,
+	fecha datetime not null default current_timestamp,
+	usuario_id int not null,
+    puntaje_obtenido int not null,
+    primary key(cuestionario_conocimientos_id),
+    foreign key(usuario_id) references mae_usuarios(usuario_id)
 );
 
-CREATE TABLE RESPUESTA_CUESTIONARIO_CONOCIMIENTOS(
-	RESPUESTA_CUESTIONARIO_CONOCIMIENTOS_ID INT NOT NULL AUTO_INCREMENT,
-    CUESTIONARIO_CONOCIMIENTOS_ID INT NOT NULL,
-    PREGUNTA LONGTEXT NOT NULL,
-    RESPUESTA VARCHAR(1) NOT NULL,
-    PUNTAJE_PREGUNTA TINYINT(1) NOT NULL,
-    PRIMARY KEY(RESPUESTA_CUESTIONARIO_CONOCIMIENTOS_ID),
-    FOREIGN KEY(CUESTIONARIO_CONOCIMIENTOS_ID) references CUESTIONARIO_CONOCIMIENTOS(CUESTIONARIO_CONOCIMIENTOS_ID)
+create table respuesta_cuestionario_conocimientos(
+	respuesta_cuestionario_conocimientos_id int not null auto_increment,
+    cuestionario_conocimientos_id int not null,
+    pregunta longtext not null,
+    respuesta varchar(1) not null,
+    puntaje_pregunta tinyint(1) not null,
+    primary key(respuesta_cuestionario_conocimientos_id),
+    foreign key(cuestionario_conocimientos_id) references cuestionario_conocimientos(cuestionario_conocimientos_id)
 );
 
--- CREATE TABLE DETALLE_CUESTIONARIO_CONOCIMIENTOS(
--- 	DETALLE_CUESTIONARIO_CONOCIMIENTOS_ID INT NOT NULL AUTO_INCREMENT,
---     CUESTIONARIO_CONOCIMIENTOS_ID INT NOT NULL,
---     PREGUNTA_CUESTIONARIO_CONOCIMIENTOS_ID INT NOT NULL,
---     PRIMARY KEY(DETALLE_CUESTIONARIO_CONOCIMIENTOS_ID),
---     FOREIGN KEY(PREGUNTA_CUESTIONARIO_CONOCIMIENTOS_ID) references PREGUNTA_CUESTIONARIO_CONOCIMIENTOS(PREGUNTA_CUESTIONARIO_CONOCIMIENTOS_ID),
---     FOREIGN KEY(CUESTIONARIO_CONOCIMIENTOS_ID) references CUESTIONARIO_CONOCIMIENTOS(CUESTIONARIO_CONOCIMIENTOS_ID)
--- );
-
-CREATE TABLE CONFIG_CUESTIONARIO(
-	CONFIG_CUESTIONARIO_ID INT NOT NULL AUTO_INCREMENT,
-    DIAS_ESPERA INT NOT NULL,
-    PRIMARY KEY(CONFIG_CUESTIONARIO_ID)
-)
+create table config_cuestionario(
+	config_cuestionario_id int not null auto_increment,
+    dias_espera int not null,
+    primary key(config_cuestionario_id)
+);

@@ -11,7 +11,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @Data
 @Entity
-@Table(name = "CONFIG_CUESTIONARIO")
+@Table(name = "config_cuestionario")
 public class ConfigCuestionario {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

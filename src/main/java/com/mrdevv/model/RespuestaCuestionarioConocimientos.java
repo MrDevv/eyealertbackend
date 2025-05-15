@@ -11,7 +11,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @Data
 @Entity
-@Table(name = "RESPUESTA_CUESTIONARIO_CONOCIMIENTOS")
+@Table(name = "respuesta_cuestionario_conocimientos")
 public class RespuestaCuestionarioConocimientos {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

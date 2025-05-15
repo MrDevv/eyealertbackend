@@ -16,7 +16,7 @@ import java.util.concurrent.atomic.AtomicInteger;
 @NoArgsConstructor
 @Data
 @Entity
-@Table(name = "CUESTIONARIO_CONOCIMIENTOS")
+@Table(name = "cuestionario_conocimientos")
 public class CuestionarioConocimientos {
 
     @Id
