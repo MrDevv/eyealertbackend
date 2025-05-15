@@ -22,7 +22,7 @@ INSERT INTO trs_pregunta_detalle VALUES(2, 3), (2, 4),
                                         (6, 1), (6, 2),
                                         (7, 1), (7, 2);
 							
-INSERT INTO MAE_DATOS_INFORMATIVOS(titulo, descripcion, fuente, fuente_multimedia) VALUES
+INSERT INTO mae_datos_informativos(titulo, descripcion, fuente, fuente_multimedia) VALUES
 	("¿Qué es el glaucoma?", 
     "El glaucoma es una enfermedad que daña el nervio óptico del ojo, lo que puede provocar pérdida de visión o ceguera irreversible.", 
     "https://www.nei.nih.gov/espanol/aprenda-sobre-la-salud-ocular/enfermedades-y-afecciones-de-los-ojos/glaucoma", 

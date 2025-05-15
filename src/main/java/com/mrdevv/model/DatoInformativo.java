@@ -16,7 +16,7 @@ public class DatoInformativo {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "DATO_INFORMATIVO_ID")
+    @Column(name = "dato_informativo_id")
     private Long id;
 
     private String titulo;
@@ -25,7 +25,7 @@ public class DatoInformativo {
 
     private String fuente;
 
-    @Column(name = "FUENTE_MULTIMEDIA")
+    @Column(name = "fuente_multimedia")
     private String fuenteMultimedia;
 
 }

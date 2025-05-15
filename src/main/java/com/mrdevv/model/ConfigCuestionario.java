@@ -15,9 +15,9 @@ import lombok.NoArgsConstructor;
 public class ConfigCuestionario {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "CONFIG_CUESTIONARIO_ID")
+    @Column(name = "config_cuestionario_id")
     private Long id;
 
-    @Column(name = "DIAS_ESPERA")
+    @Column(name = "dias_espera")
     private Integer diasEspera;
 }

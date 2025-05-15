@@ -22,10 +22,10 @@ public interface DetalleEvaluacionRepository extends JpaRepository<DetalleEvalua
             "p.descripcion 'pregunta', " +
             "r.descripcion 'respuesta', " +
             "de.respuesta_texto " +
-            "FROM TRD_DETALLE_EVALUACION de " +
-            "INNER JOIN TRS_EVALUACIONES e ON de.evaluacion_id = e.evaluacion_id " +
-            "INNER JOIN MAE_PREGUNTAS p ON de.pregunta_id = p.pregunta_id " +
-            "LEFT JOIN MAE_RESPUESTAS r ON de.respuesta_id = r.respuesta_id " +
-            "INNER JOIN MAE_USUARIOS u ON e.usuario_id = u.usuario_id WHERE e.evaluacion_id = :evaluacion_id", nativeQuery = true)
+            "FROM trd_detalle_evaluacion de " +
+            "INNER JOIN trs_evaluaciones e ON de.evaluacion_id = e.evaluacion_id " +
+            "INNER JOIN mae_preguntas p ON de.pregunta_id = p.pregunta_id " +
+            "LEFT JOIN mae_respuestas r ON de.respuesta_id = r.respuesta_id " +
+            "INNER JOIN mae_usuarios u ON e.usuario_id = u.usuario_id WHERE e.evaluacion_id = :evaluacion_id", nativeQuery = true)
     List<Object[]> findDetalleEvaluacion(@Param("evaluacion_id") Long evaluacionId);
 }

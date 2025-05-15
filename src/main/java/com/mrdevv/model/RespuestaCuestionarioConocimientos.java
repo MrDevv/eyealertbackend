@@ -15,18 +15,18 @@ import lombok.NoArgsConstructor;
 public class RespuestaCuestionarioConocimientos {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "RESPUESTA_CUESTIONARIO_CONOCIMIENTOS_ID")
+    @Column(name = "respuesta_cuestionario_conocimientos_id")
     private Long id;
 
     @ManyToOne
-    @JoinColumn(name = "CUESTIONARIO_CONOCIMIENTOS_ID")
+    @JoinColumn(name = "cuestionario_conocimientos_id")
     CuestionarioConocimientos cuestionarioConocimientos;
 
     private String pregunta;
 
     private Character respuesta;
 
-    @Column(name = "PUNTAJE_PREGUNTA")
+    @Column(name = "puntaje_pregunta")
     private Boolean puntajePregunta;
 
 }

@@ -16,22 +16,22 @@ public class DetalleEvaluacion {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "DETALLE_EVALUACION_ID")
+    @Column(name = "detalle_evaluacion_id")
     private Long id;
 
     @ManyToOne
-    @JoinColumn(name = "EVALUACION_ID")
+    @JoinColumn(name = "evaluacion_id")
     Evaluacion evaluacion;
 
     @ManyToOne
-    @JoinColumn(name = "PREGUNTA_ID")
+    @JoinColumn(name = "pregunta_id")
     Pregunta pregunta;
 
     @ManyToOne
-    @JoinColumn(name = "RESPUESTA_ID")
+    @JoinColumn(name = "respuesta_id")
     Respuesta respuesta;
 
-    @Column(name = "RESPUESTA_TEXTO")
+    @Column(name = "respuesta_texto")
     String respuestaTexto;
 
 

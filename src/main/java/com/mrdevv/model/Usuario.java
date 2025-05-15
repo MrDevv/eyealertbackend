@@ -16,7 +16,7 @@ import java.time.LocalDateTime;
 public class Usuario {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "USUARIO_ID")
+    @Column(name = "usuario_id")
     private Long id;
 
     private String nombres;
@@ -27,11 +27,11 @@ public class Usuario {
 
     private String password;
 
-    @Column(name = "CUESTIONARIO_CONOCIMIENTOS_COMPLETADO")
+    @Column(name = "cuestionario_conocimientos_completado")
     private Boolean cuestionarioCompleado;
 
     @ManyToOne
-    @JoinColumn(name = "ROL_ID")
+    @JoinColumn(name = "rol_id")
     private Rol rol;
 
     @CreationTimestamp

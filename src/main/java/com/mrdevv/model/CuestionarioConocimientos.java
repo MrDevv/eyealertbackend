@@ -21,17 +21,17 @@ public class CuestionarioConocimientos {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "CUESTIONARIO_CONOCIMIENTOS_ID")
+    @Column(name = "cuestionario_conocimientos_id")
     Long id;
 
     @CreationTimestamp
     LocalDateTime fecha;
 
     @OneToOne
-    @JoinColumn(name = "USUARIO_ID")
+    @JoinColumn(name = "usuario_id")
     Usuario usuario;
 
-    @Column(name = "PUNTAJE_OBTENIDO")
+    @Column(name = "puntaje_obtenido")
     Integer puntajeObtenido;
 
     public static Integer calcularPuntajeTotal(List<RespuestaCuestionarioConocimientos> respuestaCuestionarioConocimientos){

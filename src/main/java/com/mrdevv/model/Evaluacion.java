@@ -20,7 +20,7 @@ import java.time.LocalDateTime;
 public class Evaluacion {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "EVALUACION_ID")
+    @Column(name = "evaluacion_id")
     private Long id;
 
     @CreationTimestamp
@@ -31,6 +31,6 @@ public class Evaluacion {
     private Integer resultado;
 
     @ManyToOne
-    @JoinColumn(name = "USUARIO_ID")
+    @JoinColumn(name = "usuario_id")
     private Usuario usuario;
 }

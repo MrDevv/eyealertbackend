@@ -17,16 +17,16 @@ import java.util.List;
 public class Pregunta {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "PREGUNTA_ID")
+    @Column(name = "pregunta_id")
     private Long id;
     private String descripcion;
     private Boolean estado;
 
     @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(
-            name = "TRS_PREGUNTA_DETALLE",
-            joinColumns = @JoinColumn(name = "PREGUNTA_ID"),
-            inverseJoinColumns = @JoinColumn(name = "RESPUESTA_ID")
+            name = "trs_pregunta_detalle",
+            joinColumns = @JoinColumn(name = "pregunta_id"),
+            inverseJoinColumns = @JoinColumn(name = "respuesta_id")
     )
     private List<Respuesta> respuestas;
 }

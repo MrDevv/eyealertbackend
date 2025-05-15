@@ -10,13 +10,13 @@ import java.util.List;
 @Repository
 public interface DatoInformativoRepostory extends JpaRepository<DatoInformativo, Long> {
 
-    @Query(value = "SELECT * FROM MAE_DATOS_INFORMATIVOS ORDER BY RAND() LIMIT 3", nativeQuery = true)
+    @Query(value = "SELECT * FROM mae_datos_informativos ORDER BY RAND() LIMIT 3", nativeQuery = true)
     List<DatoInformativo> findTop3Random();
 
-    @Query(value = "SELECT * FROM MAE_DATOS_INFORMATIVOS ORDER BY RAND() LIMIT 1", nativeQuery = true)
+    @Query(value = "SELECT * FROM mae_datos_informativos ORDER BY RAND() LIMIT 1", nativeQuery = true)
     DatoInformativo findDatoInformativoRandom();
 
-    @Query(value = "SELECT * FROM MAE_DATOS_INFORMATIVOS ORDER BY DATO_INFORMATIVO_ID DESC", nativeQuery = true)
+    @Query(value = "SELECT * FROM mae_datos_informativos ORDER BY dato_informativo_id DESC", nativeQuery = true)
     List<DatoInformativo> findAllDatosInformativos();
 
 }

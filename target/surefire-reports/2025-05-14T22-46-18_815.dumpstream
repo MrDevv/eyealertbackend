@@ -1,5 +1,0 @@
-# Created at 2025-05-14T22:46:19.213
-Boot Manifest-JAR contains absolute paths in classpath 'D:\Programas\Java\eyealertbackend\target\test-classes'
-Hint: <argLine>-Djdk.net.URLClassPath.disableClassPathURLCheck=true</argLine>
-'other' has different root
-

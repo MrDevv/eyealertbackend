@@ -16,11 +16,11 @@ public interface UsuarioRepository extends JpaRepository<Usuario, Long> {
     Optional<Usuario> authUsuario(@Param("email") String email, @Param("password") String password);
 
     @Modifying
-    @Query(value = "UPDATE mae_usuarios SET CUESTIONARIO_CONOCIMIENTOS_COMPLETADO = 1 WHERE usuario_id = :usuario_id", nativeQuery = true)
+    @Query(value = "UPDATE mae_usuarios SET cuestionario_conocimientos_completado = 1 WHERE usuario_id = :usuario_id", nativeQuery = true)
     void updateEstadoCuestionarioCompletado(@Param("usuario_id") Long usuarioId);
 
     @Modifying
-    @Query(value = "UPDATE mae_usuarios SET PASSWORD = :new_password WHERE usuario_id = :usuario_id", nativeQuery = true)
+    @Query(value = "UPDATE mae_usuarios SET password = :new_password WHERE usuario_id = :usuario_id", nativeQuery = true)
     void updatePassword(@Param("new_password") String password, @Param("usuario_id") Long usuarioId);
 
     Optional<Usuario> findByEmail(String email);
