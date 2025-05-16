@@ -24,6 +24,7 @@ D:\Programas\Java\eyealertbackend\src\main\java\com\mrdevv\payload\dto\cuestiona
 D:\Programas\Java\eyealertbackend\src\main\java\com\mrdevv\payload\dto\cuestionarioConocimientos\CreateRespuestaCuestionarioConocimientos.java
 D:\Programas\Java\eyealertbackend\src\main\java\com\mrdevv\payload\dto\cuestionarioConocimientos\ResponseConfigCuestionarioDTO.java
 D:\Programas\Java\eyealertbackend\src\main\java\com\mrdevv\payload\dto\cuestionarioConocimientos\ResponseCuestionarioConocimientosDTO.java
+D:\Programas\Java\eyealertbackend\src\main\java\com\mrdevv\payload\dto\cuestionarioConocimientos\ResponseIndiceConocimientoDTO.java
 D:\Programas\Java\eyealertbackend\src\main\java\com\mrdevv\payload\dto\datoInformativo\ResponseDatoInformativoDTO.java
 D:\Programas\Java\eyealertbackend\src\main\java\com\mrdevv\payload\dto\detalleEvaluacion\CreateDetailEvaluationDTO.java
 D:\Programas\Java\eyealertbackend\src\main\java\com\mrdevv\payload\dto\detalleEvaluacion\ResponseDetalleEvaluacionDTO.java
@@ -31,6 +32,8 @@ D:\Programas\Java\eyealertbackend\src\main\java\com\mrdevv\payload\dto\detalleEv
 D:\Programas\Java\eyealertbackend\src\main\java\com\mrdevv\payload\dto\evaluacion\CreateEvaluationDTO.java
 D:\Programas\Java\eyealertbackend\src\main\java\com\mrdevv\payload\dto\evaluacion\ResponseEvaluacionesByUserDTO.java
 D:\Programas\Java\eyealertbackend\src\main\java\com\mrdevv\payload\dto\evaluacion\ResponseEvaluacionSimpleDTO.java
+D:\Programas\Java\eyealertbackend\src\main\java\com\mrdevv\payload\dto\evaluacion\ResponseTasaAciertoDTO.java
+D:\Programas\Java\eyealertbackend\src\main\java\com\mrdevv\payload\dto\evaluacion\ResponseTiempoPromedioDTO.java
 D:\Programas\Java\eyealertbackend\src\main\java\com\mrdevv\payload\dto\pregunta\ResponsePreguntasDTO.java
 D:\Programas\Java\eyealertbackend\src\main\java\com\mrdevv\payload\dto\respuesta\ResponseRespuestasDTO.java
 D:\Programas\Java\eyealertbackend\src\main\java\com\mrdevv\payload\dto\rol\ResponseRolDTO.java

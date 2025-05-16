@@ -4,6 +4,7 @@ import com.mrdevv.payload.ResponseHandler;
 import com.mrdevv.payload.dto.cuestionarioConocimientos.CreateCuestionarioConocimientos;
 import com.mrdevv.payload.dto.cuestionarioConocimientos.ResponseConfigCuestionarioDTO;
 import com.mrdevv.payload.dto.cuestionarioConocimientos.ResponseCuestionarioConocimientosDTO;
+import com.mrdevv.payload.dto.cuestionarioConocimientos.ResponseIndiceConocimientoDTO;
 import com.mrdevv.service.IConfigCuestionarioService;
 import com.mrdevv.service.ICuestionarioConocimientosService;
 import com.mrdevv.utils.TipoResponse;
@@ -42,6 +43,12 @@ public class CuestionarioController {
     public ResponseEntity<Object> createCuestionarioConocimientos(@RequestBody CreateCuestionarioConocimientos cuestionarioConocimientos){
         ResponseCuestionarioConocimientosDTO cuestionario = cuestionarioConocimientosService.createCuestionarioConocimientos(cuestionarioConocimientos);
         return ResponseHandler.get(TipoResponse.CREATE, "se creo correctamente el cuestionario de conocimientos sobre el glaucoma", cuestionario);
+    }
+
+    @GetMapping("/indice-conocimiento")
+    public ResponseEntity<Object> getIndiceConocimiento(){
+        ResponseIndiceConocimientoDTO indiceConocimientoDTO = cuestionarioConocimientosService.obtenerIndiceConocimiento();
+        return ResponseHandler.get(TipoResponse.GET, "indice de conocimiento sobre el glaucoma", indiceConocimientoDTO);
     }
 
 }

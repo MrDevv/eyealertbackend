@@ -54,12 +54,15 @@ com\mrdevv\payload\dto\detalleEvaluacion\CreateDetailEvaluationDTO.class
 com\mrdevv\payload\mapper\EvaluacionMapper.class
 com\mrdevv\payload\dto\evaluacion\CreateEvaluationDTO.class
 com\mrdevv\model\DetalleEvaluacion.class
+com\mrdevv\payload\dto\cuestionarioConocimientos\ResponseIndiceConocimientoDTO.class
 com\mrdevv\service\IDatoInformativoService.class
 com\mrdevv\payload\dto\cuestionarioConocimientos\CreateRespuestaCuestionarioConocimientos.class
 com\mrdevv\payload\mapper\RolMapper.class
 com\mrdevv\service\impl\UsuarioServiceImpl.class
+com\mrdevv\payload\dto\evaluacion\ResponseTasaAciertoDTO.class
 com\mrdevv\service\IUsuarioService.class
 com\mrdevv\model\CuestionarioConocimientos.class
+com\mrdevv\payload\dto\evaluacion\ResponseTiempoPromedioDTO.class
 com\mrdevv\model\Rol$RolBuilder.class
 com\mrdevv\payload\mapper\RespuestaCuestionarioConocimientosMapper.class
 com\mrdevv\payload\dto\usuario\ResponseUsuarioSimpleDTO.class

@@ -1,9 +1,7 @@
 package com.mrdevv.service.impl;
 
 import com.mrdevv.model.Evaluacion;
-import com.mrdevv.payload.dto.evaluacion.CreateEvaluationDTO;
-import com.mrdevv.payload.dto.evaluacion.ResponseEvaluacionSimpleDTO;
-import com.mrdevv.payload.dto.evaluacion.ResponseEvaluacionesByUserDTO;
+import com.mrdevv.payload.dto.evaluacion.*;
 import com.mrdevv.payload.mapper.EvaluacionMapper;
 import com.mrdevv.repository.EvaluacionRepository;
 import com.mrdevv.service.IDetalleEvaluacionService;
@@ -70,5 +68,17 @@ public class EvaluacionServiceImpl implements IEvaluacionService {
         });
 
         return EvaluacionMapper.toEvaluacionDTO(evaluacion);
+    }
+
+    @Override
+    public ResponseTasaAciertoDTO obtenerTasaAcierto() {
+        Object datosTasaAcierto = evaluacionRepository.obtenerTasaAciertos();
+        return EvaluacionMapper.toResponseTasaAciertoDTO(datosTasaAcierto);
+    }
+
+    @Override
+    public ResponseTiempoPromedioDTO obtenerTiempoPromedio() {
+        Object datosTiempoPromedio = evaluacionRepository.obtenerTiempoPromedio();
+        return EvaluacionMapper.toResponseTiempoPromedio(datosTiempoPromedio);
     }
 }

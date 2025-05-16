@@ -3,6 +3,7 @@ package com.mrdevv.service.impl;
 import com.mrdevv.model.CuestionarioConocimientos;
 import com.mrdevv.payload.dto.cuestionarioConocimientos.CreateCuestionarioConocimientos;
 import com.mrdevv.payload.dto.cuestionarioConocimientos.ResponseCuestionarioConocimientosDTO;
+import com.mrdevv.payload.dto.cuestionarioConocimientos.ResponseIndiceConocimientoDTO;
 import com.mrdevv.payload.mapper.CuestionarioConocimientosMapper;
 import com.mrdevv.payload.mapper.RespuestaCuestionarioConocimientosMapper;
 import com.mrdevv.repository.CuestionarioConocimientosRepository;
@@ -58,4 +59,12 @@ public class CuestionarioConocimientosServiceImpl implements ICuestionarioConoci
 
         return CuestionarioConocimientosMapper.toResponseCuestionarioConocimientosDTO(cuestionarioConocimientosSave);
     }
+
+    @Override
+    public ResponseIndiceConocimientoDTO obtenerIndiceConocimiento() {
+        Object[] datosIndiceConocimiento = (Object[]) cuestionarioConocimientosRepository.obtenerIndiceConocimiento();
+        return CuestionarioConocimientosMapper.toResponseIndiceConocimientoDTO(datosIndiceConocimiento);
+    }
+
+
 }

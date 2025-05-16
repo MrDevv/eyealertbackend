@@ -7,7 +7,7 @@ services:
     ports:
       - "8080:8080"
     environment:
-      DB_URL: jdbc:mysql://eye_alert:3306/eyealert?createDatabaseIfNotExist=true
+      DB_URL: jdbc:mysql://eye_alert:3306/eyealert?createDatabaseIfNotExist=true&serverTimezone=America/Lima
       DB_USER_NAME: root
       DB_PASSWORD: admin
       JAVA_TOOL_OPTIONS: -Duser.timezone=America/Lima
