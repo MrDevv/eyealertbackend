@@ -2,10 +2,7 @@ package com.mrdevv.controller;
 
 import com.mrdevv.model.Evaluacion;
 import com.mrdevv.payload.ResponseHandler;
-import com.mrdevv.payload.dto.evaluacion.CreateEvaluationDTO;
-import com.mrdevv.payload.dto.evaluacion.ResponseEvaluacionSimpleDTO;
-import com.mrdevv.payload.dto.evaluacion.ResponseTasaAciertoDTO;
-import com.mrdevv.payload.dto.evaluacion.ResponseTiempoPromedioDTO;
+import com.mrdevv.payload.dto.evaluacion.*;
 import com.mrdevv.service.IEvaluacionService;
 import com.mrdevv.utils.TipoResponse;
 import jakarta.validation.Valid;
@@ -36,6 +33,12 @@ public class EvaluacionController {
     public ResponseEntity<Object> crearEvaluacion(@Valid @RequestBody CreateEvaluationDTO evaluationDTO){
         ResponseEvaluacionSimpleDTO evaluacionSimpleDTO = evaluacionService.createEvaluacion(evaluationDTO);
         return ResponseHandler.get(TipoResponse.CREATE, "se creo correctamente la evaluación y su detalle", evaluacionSimpleDTO);
+    }
+
+    @PatchMapping("/{id}")
+    public ResponseEntity<Object> updateResultadoEspecialista(@PathVariable(name = "id") Long evaluacionId, @Valid @RequestBody UpdateResultadoEspecialistaDTO resultadoEspecialistaDTO){
+        evaluacionService.updateResultadoEspecialista(evaluacionId, resultadoEspecialistaDTO);
+        return ResponseHandler.get(TipoResponse.PATCH, "se actualizó correctamente el resultado del especialista", null);
     }
 
     @GetMapping("/tasa-acierto")

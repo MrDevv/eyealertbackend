@@ -70,6 +70,12 @@ public class EvaluacionServiceImpl implements IEvaluacionService {
         return EvaluacionMapper.toEvaluacionDTO(evaluacion);
     }
 
+    @Transactional
+    @Override
+    public void updateResultadoEspecialista(Long id, UpdateResultadoEspecialistaDTO resultadoEspecialistaDTO) {
+        evaluacionRepository.updateResultadoEspecialista(id, resultadoEspecialistaDTO.resultadoEspecialista());
+    }
+
     @Override
     public ResponseTasaAciertoDTO obtenerTasaAcierto() {
         Object datosTasaAcierto = evaluacionRepository.obtenerTasaAciertos();

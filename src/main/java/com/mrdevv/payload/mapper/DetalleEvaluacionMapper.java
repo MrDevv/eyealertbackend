@@ -40,7 +40,7 @@ public class DetalleEvaluacionMapper {
         if (evaluaciones.get(0)[7]!=null){
             resultadoEspecialista = (Boolean) evaluaciones.get(0)[7] ? "acertado" : "no acertado";
         }else{
-            resultadoEspecialista = "pediente";
+            resultadoEspecialista = "pendiente";
         }
 
         listPreguntasRespuestas = evaluaciones.stream().map(evaluacion -> {

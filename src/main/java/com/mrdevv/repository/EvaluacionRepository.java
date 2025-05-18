@@ -2,6 +2,7 @@ package com.mrdevv.repository;
 
 import com.mrdevv.model.Evaluacion;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
@@ -21,6 +22,10 @@ public interface EvaluacionRepository extends JpaRepository<Evaluacion, Long> {
 
     @Query(value = "SELECT * FROM trs_evaluaciones WHERE fecha >= DATE_SUB(CURDATE(), INTERVAL 1 MONTH) AND usuario_id = :id_usuario ORDER BY fecha DESC; ", nativeQuery = true)
     public List<Evaluacion> findLastMonthEvaluationByUser(@Param("id_usuario") Long id);
+
+    @Modifying
+    @Query(value = "UPDATE trs_evaluaciones SET resultado_acertado = :resultado WHERE evaluacion_id = :evaluacion_id", nativeQuery = true)
+    public void updateResultadoEspecialista(@Param("evaluacion_id") Long id, @Param("resultado") Boolean resultado);
 
     @Query(value = "SELECT " +
             "COUNT(*) AS total_evaluaciones, " +

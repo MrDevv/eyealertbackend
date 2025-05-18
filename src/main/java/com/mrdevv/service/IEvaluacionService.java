@@ -7,9 +7,7 @@ import java.util.List;
 
 public interface IEvaluacionService {
 
-
     List<Evaluacion> getEvaluaciones();
-
 
     ResponseEvaluacionesByUserDTO getEvaluacionesByUser(Long id);
 
@@ -20,6 +18,8 @@ public interface IEvaluacionService {
     ResponseEvaluacionesByUserDTO getLastMonthEvaluationsByUser(Long id);
 
     ResponseEvaluacionSimpleDTO createEvaluacion(CreateEvaluationDTO evaluationDTO);
+
+    void updateResultadoEspecialista(Long id, UpdateResultadoEspecialistaDTO resultadoEspecialistaDTO);
 
     ResponseTasaAciertoDTO obtenerTasaAcierto();
 

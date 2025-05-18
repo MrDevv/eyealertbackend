@@ -9,7 +9,7 @@ INSERT INTO config_cuestionario(dias_espera) VALUES(7);
 INSERT INTO mae_preguntas(descripcion) VALUES
 	("Ingresa tu edad"),
     ("Selecciona tu genero"),
-    ("¿Te han diagnoticado con presión intraocular (PIO) elevada?"),
+    ("¿Te han diagnosticado con presión intraocular (PIO) elevada?"),
     ("¿Tus padres (mamá o papá) fueron diagnosticados con glaucoma?"),
     ("¿Has sido diagnosticado con diabetes mellitus?"),
     ("¿Has sido diagnosticado con hipertesión arterial?"),

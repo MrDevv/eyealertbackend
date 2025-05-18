@@ -67,6 +67,7 @@ com\mrdevv\model\Rol$RolBuilder.class
 com\mrdevv\payload\mapper\RespuestaCuestionarioConocimientosMapper.class
 com\mrdevv\payload\dto\usuario\ResponseUsuarioSimpleDTO.class
 com\mrdevv\repository\DetalleEvaluacionRepository.class
+com\mrdevv\payload\dto\evaluacion\UpdateResultadoEspecialistaDTO.class
 com\mrdevv\model\RespuestaCuestionarioConocimientos.class
 com\mrdevv\config\MailConfiguration.class
 com\mrdevv\controller\DatoInformativoController.class
