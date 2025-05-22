@@ -67,7 +67,7 @@ create table trd_detalle_evaluacion(
 create table mae_datos_informativos(
 	dato_informativo_id int not null auto_increment,
     titulo varchar(100) not null,
-    descripcion varchar(255) not null,
+    descripcion longtext not null,
     fuente longtext not null,
     fuente_multimedia longtext,
     primary key(dato_informativo_id)
