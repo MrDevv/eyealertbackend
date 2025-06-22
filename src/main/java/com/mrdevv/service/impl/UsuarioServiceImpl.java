@@ -17,6 +17,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class UsuarioServiceImpl implements IUsuarioService {
@@ -37,25 +38,16 @@ public class UsuarioServiceImpl implements IUsuarioService {
         return usuarioRepository.findAll();
     }
 
-    @Override
-    public ResponseUsuarioDTO authUsuario(AuthUsuarioDTO authUsuarioDTO) {
-        Usuario usuario = usuarioRepository.authUsuario(authUsuarioDTO.email(), authUsuarioDTO.password()).orElse(null);
-        if (usuario == null) {
-            return null;
-        }
-        return UsuarioMapper.toUsuarioDTO(usuario);
-    }
-
-    @Transactional
-    @Override
-    public ResponseUsuarioDTO createUsuario(CreateUsuarioDTO usuarioDTO) {
-        ResponseRolDTO rolDTO = rolService.getIdRolUsuario();
-        Boolean cuestionarioCompleado = false;
-        existsByEmail(usuarioDTO.email());
-        Usuario usuario = usuarioRepository.save(UsuarioMapper.toUsuarioEntity(usuarioDTO, rolDTO, cuestionarioCompleado));
-        usuario.setRol(RolMapper.toRolEntity(rolDTO));
-        return UsuarioMapper.toUsuarioDTO(usuario);
-    }
+//    @Transactional
+//    @Override
+//    public ResponseUsuarioDTO createUsuario(CreateUsuarioDTO usuarioDTO) {
+//        ResponseRolDTO rolDTO = rolService.getIdRolUsuario();
+//        Boolean cuestionarioCompleado = false;
+//        existsByEmail(usuarioDTO.email());
+//        Usuario usuario = usuarioRepository.save(UsuarioMapper.toUsuarioEntity(usuarioDTO, rolDTO, cuestionarioCompleado));
+//        usuario.setRol(RolMapper.toRolEntity(rolDTO));
+//        return UsuarioMapper.toUsuarioDTO(usuario);
+//    }
 
     @Override
     public ResponseCodeDTO sendCodeEmail(EmailDTO emailDTO) {
@@ -90,5 +82,10 @@ public class UsuarioServiceImpl implements IUsuarioService {
                     "Entrada duplicada " + email + " para la llave mae_usuario.EMAIL."
             );
         }
+    }
+
+    @Override
+    public Optional<Usuario> findByEmail(String email) {
+        return usuarioRepository.findByEmail(email);
     }
 }

@@ -8,7 +8,7 @@ import com.mrdevv.payload.dto.usuario.ResponseUsuarioDTO;
 
 public class UsuarioMapper {
 
-    public static ResponseUsuarioDTO toUsuarioDTO(Usuario usuario){
+    public static ResponseUsuarioDTO toUsuarioDTO(Usuario usuario, String jwt){
         return new ResponseUsuarioDTO(
                 usuario.getId(),
                 usuario.getNombres(),
@@ -16,7 +16,8 @@ public class UsuarioMapper {
                 usuario.getEmail(),
                 usuario.getRol().getDescripcion(),
                 usuario.getCuestionarioCompleado(),
-                usuario.getFecha()
+                usuario.getFecha(),
+                jwt
         );
     }
 

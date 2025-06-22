@@ -1,8 +1,11 @@
 package com.mrdevv;
 
 import jakarta.annotation.PostConstruct;
+import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.context.annotation.Bean;
+import org.springframework.security.crypto.password.PasswordEncoder;
 
 import java.time.LocalDateTime;
 import java.time.ZoneId;
@@ -20,5 +23,13 @@ public class EyealertbackendApplication {
 				LocalDateTime.now(ZoneId.systemDefault()));
 		System.out.println("Zona horaria de JVM: " +
 				ZoneId.systemDefault());
+	}
+
+	@Bean
+	CommandLineRunner createPasswordCommand(PasswordEncoder passwordEncoder){
+		return args -> {
+			System.out.println(passwordEncoder.encode("admin"));
+			System.out.println(passwordEncoder.encode("1234"));
+		};
 	}
 }

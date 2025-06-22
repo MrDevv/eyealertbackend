@@ -36,17 +36,11 @@ public class UsuarioController {
         return ResponseHandler.get(TipoResponse.GET, "lista de usuarios", usuarios);
     }
 
-    @PostMapping("/auth")
-    public ResponseEntity<Object> authUsuario(@Valid @RequestBody AuthUsuarioDTO authUsuarioDTO){
-        ResponseUsuarioDTO usuario = usuarioService.authUsuario(authUsuarioDTO);
-        return ResponseHandler.get(TipoResponse.GET, "datos del usuario", usuario);
-    }
-
-    @PostMapping
-    public ResponseEntity<Object> crearUsuario(@Valid @RequestBody CreateUsuarioDTO usuarioDTO){
-        ResponseUsuarioDTO usuario = usuarioService.createUsuario(usuarioDTO);
-        return ResponseHandler.get(TipoResponse.CREATE, "usuario creado", usuario);
-    }
+//    @PostMapping
+//    public ResponseEntity<Object> crearUsuario(@Valid @RequestBody CreateUsuarioDTO usuarioDTO){
+//        ResponseUsuarioDTO usuario = usuarioService.createUsuario(usuarioDTO);
+//        return ResponseHandler.get(TipoResponse.CREATE, "usuario creado", usuario);
+//    }
 
     @GetMapping("/{id}/evaluaciones/latest")
     public ResponseEntity<Object> getLastEvaluacionesByUser(@PathVariable Long id){

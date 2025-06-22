@@ -4,14 +4,13 @@ import com.mrdevv.model.Usuario;
 import com.mrdevv.payload.dto.usuario.*;
 
 import java.util.List;
+import java.util.Optional;
 
 public interface IUsuarioService {
 
     List<Usuario> getUsuarios();
 
-    ResponseUsuarioDTO authUsuario(AuthUsuarioDTO authUsuarioDTO);
-
-    ResponseUsuarioDTO createUsuario(CreateUsuarioDTO usuarioDTO);
+//    ResponseUsuarioDTO createUsuario(CreateUsuarioDTO usuarioDTO);
 
     ResponseCodeDTO sendCodeEmail(EmailDTO emailDTO);
 
@@ -20,5 +19,7 @@ public interface IUsuarioService {
     void updatePassword(String newPassword, Long usuarioId);
 
     void existsByEmail(String email);
+
+    Optional<Usuario> findByEmail(String email);
 
 }
