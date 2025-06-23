@@ -1,6 +1,8 @@
 package com.mrdevv.repository;
 
 import com.mrdevv.model.Usuario;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
@@ -11,6 +13,8 @@ import java.util.Optional;
 
 @Repository
 public interface UsuarioRepository extends JpaRepository<Usuario, Long> {
+
+    Page<Usuario> findAll(Pageable pageable);
 
     @Query(value = "SELECT * FROM mae_usuarios WHERE email = :email AND password = :password", nativeQuery = true)
     Optional<Usuario> authUsuario(@Param("email") String email, @Param("password") String password);

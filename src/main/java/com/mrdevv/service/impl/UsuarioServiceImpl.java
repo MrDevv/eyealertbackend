@@ -14,6 +14,8 @@ import com.mrdevv.service.IEmailService;
 import com.mrdevv.service.IRolService;
 import com.mrdevv.service.IUsuarioService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -38,8 +40,8 @@ public class UsuarioServiceImpl implements IUsuarioService {
     }
 
     @Override
-    public List<Usuario> getUsuarios() {
-        return usuarioRepository.findAll();
+    public Page<Usuario> getUsuarios(Pageable pageable) {
+        return usuarioRepository.findAll(pageable);
     }
 
     @Transactional

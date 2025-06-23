@@ -10,6 +10,9 @@ import com.mrdevv.service.IUsuarioService;
 import com.mrdevv.utils.TipoResponse;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -31,9 +34,10 @@ public class UsuarioController {
     }
 
     @GetMapping
-    public ResponseEntity<Object> getUsuarios(){
-        List<Usuario> usuarios = usuarioService.getUsuarios();
-        return ResponseHandler.get(TipoResponse.GET, "lista de usuarios", usuarios);
+    public ResponseEntity<Object> getUsuarios(@RequestParam(defaultValue = "0") Integer page, @RequestParam(defaultValue = "10") Integer size){
+        Pageable pageable = PageRequest.of(page, size);
+        Page<Usuario> usuarios = usuarioService.getUsuarios(pageable);
+        return ResponseHandler.getWithPageable(TipoResponse.GET, "lista de usuarios", usuarios);
     }
 
     @GetMapping("/{id}/evaluaciones/latest")
