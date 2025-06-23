@@ -15,7 +15,8 @@ public interface EvaluacionRepository extends JpaRepository<Evaluacion, Long> {
 
     public List<Evaluacion> findAllByUsuarioIdOrderByFechaDesc(Long id);
 
-    public List<Evaluacion> findTop3ByUsuarioIdOrderByFechaDesc(Long id);
+    @Query(value = "SELECT * FROM trs_evaluaciones WHERE usuario_id = :id_usuario ORDER BY fecha DESC LIMIT :size", nativeQuery = true)
+    public List<Evaluacion> findLatestByUsuarioIdOrderByFechaDesc(@Param("id_usuario") Long id, @Param("size") Integer size);
 
     @Query(value = "SELECT * FROM trs_evaluaciones WHERE fecha >= NOW() - INTERVAL 7 DAY AND usuario_id = :id_usuario ORDER BY fecha DESC", nativeQuery = true)
     public List<Evaluacion> findLastWeekEvaluationsByUser(@Param("id_usuario") Long id);

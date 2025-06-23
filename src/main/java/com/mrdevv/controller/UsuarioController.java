@@ -13,6 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.repository.query.Param;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -41,9 +42,9 @@ public class UsuarioController {
     }
 
     @GetMapping("/{id}/evaluaciones/latest")
-    public ResponseEntity<Object> getLastEvaluacionesByUser(@PathVariable Long id){
-        ResponseEvaluacionesByUserDTO evaluacionesByUser = evaluacionService.getLastEvaluacionesByUser(id);
-        return ResponseHandler.get(TipoResponse.GET, "lista de ultimas 3 evaluacion del usuario", evaluacionesByUser);
+    public ResponseEntity<Object> getLatestEvaluacionesByUser(@PathVariable Long id, @RequestParam(defaultValue = "3") Integer size){
+        ResponseEvaluacionesByUserDTO evaluacionesByUser = evaluacionService.getLastestEvaluacionesByUser(id, size);
+        return ResponseHandler.get(TipoResponse.GET, "lista de ultimas " + size + " evaluacion del usuario", evaluacionesByUser);
     }
 
     @GetMapping("/{id}/evaluaciones")

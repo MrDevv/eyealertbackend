@@ -39,8 +39,8 @@ public class EvaluacionServiceImpl implements IEvaluacionService {
 
     @Transactional(readOnly = true)
     @Override
-    public ResponseEvaluacionesByUserDTO getLastEvaluacionesByUser(Long id) {
-        List<Evaluacion> evaluaciones = evaluacionRepository.findTop3ByUsuarioIdOrderByFechaDesc(id);
+    public ResponseEvaluacionesByUserDTO getLastestEvaluacionesByUser(Long id, Integer size) {
+        List<Evaluacion> evaluaciones = evaluacionRepository.findLatestByUsuarioIdOrderByFechaDesc(id, size);
         return EvaluacionMapper.toEvaluacionByUserDTO(evaluaciones);
     }
 
