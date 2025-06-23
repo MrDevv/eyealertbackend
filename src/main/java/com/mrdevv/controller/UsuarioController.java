@@ -36,12 +36,6 @@ public class UsuarioController {
         return ResponseHandler.get(TipoResponse.GET, "lista de usuarios", usuarios);
     }
 
-//    @PostMapping
-//    public ResponseEntity<Object> crearUsuario(@Valid @RequestBody CreateUsuarioDTO usuarioDTO){
-//        ResponseUsuarioDTO usuario = usuarioService.createUsuario(usuarioDTO);
-//        return ResponseHandler.get(TipoResponse.CREATE, "usuario creado", usuario);
-//    }
-
     @GetMapping("/{id}/evaluaciones/latest")
     public ResponseEntity<Object> getLastEvaluacionesByUser(@PathVariable Long id){
         ResponseEvaluacionesByUserDTO evaluacionesByUser = evaluacionService.getLastEvaluacionesByUser(id);

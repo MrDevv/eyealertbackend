@@ -35,7 +35,7 @@ public class AuthenticationService {
         Map<String, Object> extraClaims = new HashMap<>();
 
         extraClaims.put("name", usuario.getNombres());
-        extraClaims.put("role", usuario.getRol().getDescripcion());
+        extraClaims.put("role", "ROLE_" + usuario.getRol().getDescripcion());
 
         return extraClaims;
     }

@@ -1,6 +1,8 @@
 package com.mrdevv.config.security;
 
 import com.mrdevv.config.security.filter.JwtAuthenticationFilter;
+import com.mrdevv.config.security.handler.CustomAccessDeniedHandler;
+import com.mrdevv.config.security.handler.CustomAuthenticationEntryPoint;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -19,10 +21,15 @@ public class HttpSecurityConfig {
     private AuthenticationProvider authenticationProvider;
     private JwtAuthenticationFilter jwtAuthenticationFilter;
 
+    private CustomAccessDeniedHandler customAccessDeniedHandler;
+    private CustomAuthenticationEntryPoint customAuthenticationEntryPoint;
+
     @Autowired
-    public HttpSecurityConfig(AuthenticationProvider authenticationProvider, JwtAuthenticationFilter jwtAuthenticationFilter){
+    public HttpSecurityConfig(AuthenticationProvider authenticationProvider, JwtAuthenticationFilter jwtAuthenticationFilter, CustomAccessDeniedHandler customAccessDeniedHandler, CustomAuthenticationEntryPoint customAuthenticationEntryPoint){
         this.authenticationProvider = authenticationProvider;
         this.jwtAuthenticationFilter = jwtAuthenticationFilter;
+        this.customAccessDeniedHandler = customAccessDeniedHandler;
+        this.customAuthenticationEntryPoint = customAuthenticationEntryPoint;
     }
 
     @Bean
@@ -32,9 +39,22 @@ public class HttpSecurityConfig {
                 .sessionManagement(sessMagConfig -> sessMagConfig.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authenticationProvider(authenticationProvider)
                 .addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class)
+                .exceptionHandling(excepHandler ->{
+                    excepHandler.accessDeniedHandler(customAccessDeniedHandler);
+                    excepHandler.authenticationEntryPoint(customAuthenticationEntryPoint);
+                })
                 .authorizeHttpRequests(authHttpRequests -> {
+                    authHttpRequests.requestMatchers(HttpMethod.GET, "/evaluaciones/tiempo-promedio-prediccion").hasRole("administrador");
+                    authHttpRequests.requestMatchers(HttpMethod.GET, "/evaluaciones/tasa-acierto").hasRole("administrador");
+                    authHttpRequests.requestMatchers(HttpMethod.PATCH, "/evaluaciones/{id}").hasRole("administrador");
+                    authHttpRequests.requestMatchers(HttpMethod.GET, "/evaluaciones").hasRole("administrador");
+
+                    authHttpRequests.requestMatchers(HttpMethod.GET, "/cuestionarioConocimientos").hasRole("administrador");
+                    authHttpRequests.requestMatchers(HttpMethod.GET, "/cuestionarioConocimientos/indice-conocimiento").hasRole("administrador");
+
                     authHttpRequests.requestMatchers(HttpMethod.POST, "/auth/login").permitAll();
                     authHttpRequests.requestMatchers(HttpMethod.POST, "/auth/create-usuario").permitAll();
+
                     authHttpRequests.anyRequest().authenticated();
                 })
                 .build();
