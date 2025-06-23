@@ -23,7 +23,6 @@ public class CustomAuthenticationEntryPoint implements AuthenticationEntryPoint 
         ZoneId zoneId = ZoneId.of("America/Lima");
         LocalDateTime localDateTime = LocalDateTime.now(zoneId);
         int httpStatus = HttpStatus.UNAUTHORIZED.value();
-
         ResponseError responseError = new ResponseError(
                 "Failed",
                 httpStatus,

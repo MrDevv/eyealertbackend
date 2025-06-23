@@ -44,10 +44,7 @@ public class SecurityBeansInjector {
     @Bean
     public UserDetailsService userDetailsService(){
         return username -> usuarioRepository.findByEmail(username)
-                .orElseThrow(() -> new ObjectNotFoundException(
-                        "El email " + username + "  no se encontró en la base de datos.",
-                        "El email no está asociado a ninguna cuenta."
-                ));
+                .orElseThrow(() -> new ObjectNotFoundException(null, null));
     }
 
 }

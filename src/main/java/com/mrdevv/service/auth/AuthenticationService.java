@@ -1,5 +1,6 @@
 package com.mrdevv.service.auth;
 
+import com.mrdevv.exception.ObjectNotFoundException;
 import com.mrdevv.model.Usuario;
 import com.mrdevv.payload.dto.usuario.AuthUsuarioDTO;
 import com.mrdevv.payload.dto.usuario.CreateUsuarioDTO;
@@ -45,7 +46,12 @@ public class AuthenticationService {
                 authUsuarioDTO.email(),
                 authUsuarioDTO.password()
         );
-        authenticationManager.authenticate(authentication);
+        try{
+            authenticationManager.authenticate(authentication);
+        }catch (Exception e){
+            throw new ObjectNotFoundException("Credenciales (email o password) incorrectas.", "Correo o contraseña incorrecta, por favor revise los datos ingresados.");
+        }
+
         UserDetails user = usuarioService.findByEmail(authUsuarioDTO.email()).get();
         String jwt = jwtService.generateToken(user, generateExtraClaims((Usuario) user));
         return UsuarioMapper.toUsuarioDTO((Usuario) user, jwt);
