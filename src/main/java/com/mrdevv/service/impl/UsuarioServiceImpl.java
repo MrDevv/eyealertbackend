@@ -2,6 +2,7 @@ package com.mrdevv.service.impl;
 
 import com.mrdevv.exception.ObjectDuplicateException;
 import com.mrdevv.exception.ObjectNotFoundException;
+import com.mrdevv.exception.PasswordNotMatchesException;
 import com.mrdevv.model.Rol;
 import com.mrdevv.model.Usuario;
 import com.mrdevv.payload.dto.rol.ResponseRolDTO;
@@ -44,6 +45,7 @@ public class UsuarioServiceImpl implements IUsuarioService {
     @Transactional
     @Override
     public Usuario createUsuario(CreateUsuarioDTO usuarioDTO) {
+        validarPassword(usuarioDTO.password(), usuarioDTO.passwordRepetida());
         ResponseRolDTO rolDTO = rolService.getIdRolUsuario();
         Boolean cuestionarioCompleado = false;
         existsByEmail(usuarioDTO.email());
@@ -92,5 +94,14 @@ public class UsuarioServiceImpl implements IUsuarioService {
     @Override
     public Optional<Usuario> findByEmail(String email) {
         return usuarioRepository.findByEmail(email);
+    }
+
+    public void validarPassword(String password, String passwordRepetida){
+        if (!password.equals(passwordRepetida)){
+            throw new PasswordNotMatchesException(
+                    "La propiedad [password] y [password_repetida] no coinciden",
+                    "Las contraseñas no coinciden, por favor ingrese contraseñas válidas"
+            );
+        }
     }
 }

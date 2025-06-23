@@ -38,6 +38,7 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
                 (request.getRequestURI().contains("login") || request.getRequestURI().contains("create-usuario"))
         ){
             filterChain.doFilter(request, response);
+            return;
         }
 
         if (!StringUtils.hasText(autherizationHeader) || !autherizationHeader.startsWith("Bearer ") ){

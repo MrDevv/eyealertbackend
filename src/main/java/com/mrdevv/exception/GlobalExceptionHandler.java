@@ -27,9 +27,28 @@ public class GlobalExceptionHandler {
             return handlerDataIntegrityViolationException(objectDuplicateExcepction, request, response, localDateTime);
         }else if (exception instanceof ObjectNotFoundException objectNotFoundException){
             return handlerObjectNotFoundException(objectNotFoundException, request, response, localDateTime);
+        }else if (exception instanceof PasswordNotMatchesException passwordNotMatchesException){
+            return handlerPasswordNotMatchesException(passwordNotMatchesException, request, response, localDateTime);
         }
 
         return handlerException(exception, request, response, localDateTime);
+    }
+
+    private ResponseEntity<ResponseError> handlerPasswordNotMatchesException(PasswordNotMatchesException passwordNotMatchesException, HttpServletRequest request, HttpServletResponse response, LocalDateTime localDateTime) {
+        int httpStatus = HttpStatus.BAD_REQUEST.value();
+
+        ResponseError responseError = new ResponseError(
+                "Failed",
+                httpStatus,
+                request.getRequestURL().toString(),
+                request.getMethod(),
+                passwordNotMatchesException.getMessageFront(),
+                passwordNotMatchesException.getMessage(),
+                localDateTime,
+                null
+        );
+
+        return ResponseEntity.status(httpStatus).body(responseError);
     }
 
     public ResponseEntity<ResponseError> handlerObjectNotFoundException(ObjectNotFoundException objectNotFoundException, HttpServletRequest request, HttpServletResponse response, LocalDateTime localDateTime){
