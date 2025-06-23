@@ -34,6 +34,7 @@ public class HttpSecurityConfig {
                 .addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class)
                 .authorizeHttpRequests(authHttpRequests -> {
                     authHttpRequests.requestMatchers(HttpMethod.POST, "/auth/login").permitAll();
+                    authHttpRequests.requestMatchers(HttpMethod.POST, "/auth/create-usuario").permitAll();
                     authHttpRequests.anyRequest().authenticated();
                 })
                 .build();

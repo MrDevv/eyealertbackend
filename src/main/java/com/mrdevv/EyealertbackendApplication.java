@@ -25,11 +25,11 @@ public class EyealertbackendApplication {
 				ZoneId.systemDefault());
 	}
 
-//	@Bean
-//	CommandLineRunner createPasswordCommand(PasswordEncoder passwordEncoder){
-//		return args -> {
-//			System.out.println(passwordEncoder.encode("admin"));
-//			System.out.println(passwordEncoder.encode("1234"));
-//		};
-//	}
+	@Bean
+	CommandLineRunner createPasswordCommand(PasswordEncoder passwordEncoder){
+		return args -> {
+			System.out.println(passwordEncoder.encode("admin"));
+			System.out.println(passwordEncoder.encode("1234"));
+		};
+	}
 }

@@ -13,6 +13,7 @@ import com.mrdevv.service.IEmailService;
 import com.mrdevv.service.IRolService;
 import com.mrdevv.service.IUsuarioService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -25,12 +26,14 @@ public class UsuarioServiceImpl implements IUsuarioService {
     private UsuarioRepository usuarioRepository;
     private IEmailService emailService;
     private IRolService rolService;
+    private PasswordEncoder passwordEncoder;
 
     @Autowired
-    public UsuarioServiceImpl(UsuarioRepository usuarioRepository, IEmailService emailService, IRolService rolService) {
+    public UsuarioServiceImpl(UsuarioRepository usuarioRepository, IEmailService emailService, IRolService rolService, PasswordEncoder passwordEncoder) {
         this.usuarioRepository = usuarioRepository;
         this.emailService = emailService;
         this.rolService = rolService;
+        this.passwordEncoder = passwordEncoder;
     }
 
     @Override
@@ -38,16 +41,18 @@ public class UsuarioServiceImpl implements IUsuarioService {
         return usuarioRepository.findAll();
     }
 
-//    @Transactional
-//    @Override
-//    public ResponseUsuarioDTO createUsuario(CreateUsuarioDTO usuarioDTO) {
-//        ResponseRolDTO rolDTO = rolService.getIdRolUsuario();
-//        Boolean cuestionarioCompleado = false;
-//        existsByEmail(usuarioDTO.email());
-//        Usuario usuario = usuarioRepository.save(UsuarioMapper.toUsuarioEntity(usuarioDTO, rolDTO, cuestionarioCompleado));
-//        usuario.setRol(RolMapper.toRolEntity(rolDTO));
-//        return UsuarioMapper.toUsuarioDTO(usuario);
-//    }
+    @Transactional
+    @Override
+    public Usuario createUsuario(CreateUsuarioDTO usuarioDTO) {
+        ResponseRolDTO rolDTO = rolService.getIdRolUsuario();
+        Boolean cuestionarioCompleado = false;
+        existsByEmail(usuarioDTO.email());
+        Usuario usuario = UsuarioMapper.toUsuarioEntity(usuarioDTO, rolDTO, cuestionarioCompleado);
+        usuario.setPassword(passwordEncoder.encode(usuario.getPassword()));
+        usuarioRepository.save(usuario);
+        usuario.setRol(RolMapper.toRolEntity(rolDTO));
+        return usuario;
+    }
 
     @Override
     public ResponseCodeDTO sendCodeEmail(EmailDTO emailDTO) {

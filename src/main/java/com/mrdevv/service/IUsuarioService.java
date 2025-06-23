@@ -10,7 +10,7 @@ public interface IUsuarioService {
 
     List<Usuario> getUsuarios();
 
-//    ResponseUsuarioDTO createUsuario(CreateUsuarioDTO usuarioDTO);
+    Usuario createUsuario(CreateUsuarioDTO usuarioDTO);
 
     ResponseCodeDTO sendCodeEmail(EmailDTO emailDTO);
 

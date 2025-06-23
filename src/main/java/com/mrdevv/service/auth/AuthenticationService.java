@@ -2,6 +2,7 @@ package com.mrdevv.service.auth;
 
 import com.mrdevv.model.Usuario;
 import com.mrdevv.payload.dto.usuario.AuthUsuarioDTO;
+import com.mrdevv.payload.dto.usuario.CreateUsuarioDTO;
 import com.mrdevv.payload.dto.usuario.ResponseUsuarioDTO;
 import com.mrdevv.payload.mapper.UsuarioMapper;
 import com.mrdevv.service.IUsuarioService;
@@ -48,5 +49,11 @@ public class AuthenticationService {
         UserDetails user = usuarioService.findByEmail(authUsuarioDTO.email()).get();
         String jwt = jwtService.generateToken(user, generateExtraClaims((Usuario) user));
         return UsuarioMapper.toUsuarioDTO((Usuario) user, jwt);
+    }
+
+    public ResponseUsuarioDTO createUsuario(@Valid CreateUsuarioDTO usuarioDTO){
+        Usuario usuario = usuarioService.createUsuario(usuarioDTO);
+        String jwt = jwtService.generateToken(usuario, generateExtraClaims(usuario));
+        return UsuarioMapper.toUsuarioDTO(usuario, jwt);
     }
 }
