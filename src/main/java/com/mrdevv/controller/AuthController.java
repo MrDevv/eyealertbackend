@@ -10,10 +10,9 @@ import com.mrdevv.utils.TipoResponse;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/auth")
@@ -37,6 +36,12 @@ public class AuthController {
     public ResponseEntity<Object> crearUsuario(@Valid @RequestBody CreateUsuarioDTO usuarioDTO) {
         ResponseUsuarioDTO usuario = authenticationService.createUsuario(usuarioDTO);
         return ResponseHandler.get(TipoResponse.CREATE, "usuario creado", usuario);
+    }
+
+    @GetMapping("/validate-token")
+    public ResponseEntity<Object> validarToken(){
+        ResponseUsuarioDTO usuarioDTO = authenticationService.validateToken();
+        return ResponseHandler.get(TipoResponse.GET, "datos del usuario logeado", usuarioDTO);
     }
 
 }

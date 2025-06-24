@@ -28,7 +28,7 @@ public class CustomAuthenticationEntryPoint implements AuthenticationEntryPoint 
                 httpStatus,
                 request.getRequestURL().toString(),
                 request.getMethod(),
-                "No está logeado o su token no es válido, por favor inicie sesión.",
+                "No está logeado o su sesión no es válida, por favor inicie sesión.",
                 "No se encontró un token de autenticación o este a expirado.",
                 localDateTime,
                 null
