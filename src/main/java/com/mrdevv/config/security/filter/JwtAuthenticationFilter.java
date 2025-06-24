@@ -47,7 +47,6 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
         }
 
         String jwt = autherizationHeader.split(" ")[1];
-
         String userEmail = jwtService.extractUserEmail(jwt);
 
         UserDetails userDetails = usuarioService.findByEmail(userEmail)
