@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
@@ -26,8 +27,9 @@ public class DatoInformativoController {
 
 
     @GetMapping("/aleatorios")
-    public ResponseEntity<Object> getDatosInformativosAleatorios(){
-        List<ResponseDatoInformativoDTO> datosInformativos = datoInformativoService.getDatosInformativoAleatorio();
+    public ResponseEntity<Object> getDatosInformativosAleatorios(@RequestParam(required = false, defaultValue = "12") Integer size){
+        System.out.println(size);
+        List<ResponseDatoInformativoDTO> datosInformativos = datoInformativoService.getDatosInformativoAleatorio(size);
         return ResponseHandler.get(TipoResponse.GET, "lista de datos informativos aleatorios", datosInformativos);
     }
 

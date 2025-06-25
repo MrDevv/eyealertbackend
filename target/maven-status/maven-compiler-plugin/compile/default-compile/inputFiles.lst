@@ -1,7 +1,11 @@
-/home/mrdevv/programas/java/eyealertbackend/src/main/java/com/mrdevv/CorsConfig.java
 /home/mrdevv/programas/java/eyealertbackend/src/main/java/com/mrdevv/EyealertbackendApplication.java
 /home/mrdevv/programas/java/eyealertbackend/src/main/java/com/mrdevv/config/MailConfiguration.java
+/home/mrdevv/programas/java/eyealertbackend/src/main/java/com/mrdevv/config/security/HttpSecurityConfig.java
 /home/mrdevv/programas/java/eyealertbackend/src/main/java/com/mrdevv/config/security/SecurityBeansInjector.java
+/home/mrdevv/programas/java/eyealertbackend/src/main/java/com/mrdevv/config/security/filter/JwtAuthenticationFilter.java
+/home/mrdevv/programas/java/eyealertbackend/src/main/java/com/mrdevv/config/security/handler/CustomAccessDeniedHandler.java
+/home/mrdevv/programas/java/eyealertbackend/src/main/java/com/mrdevv/config/security/handler/CustomAuthenticationEntryPoint.java
+/home/mrdevv/programas/java/eyealertbackend/src/main/java/com/mrdevv/controller/AuthController.java
 /home/mrdevv/programas/java/eyealertbackend/src/main/java/com/mrdevv/controller/CuestionarioController.java
 /home/mrdevv/programas/java/eyealertbackend/src/main/java/com/mrdevv/controller/DatoInformativoController.java
 /home/mrdevv/programas/java/eyealertbackend/src/main/java/com/mrdevv/controller/DetalleEvaluacionController.java
@@ -9,8 +13,10 @@
 /home/mrdevv/programas/java/eyealertbackend/src/main/java/com/mrdevv/controller/PreguntaController.java
 /home/mrdevv/programas/java/eyealertbackend/src/main/java/com/mrdevv/controller/UsuarioController.java
 /home/mrdevv/programas/java/eyealertbackend/src/main/java/com/mrdevv/exception/GlobalExceptionHandler.java
+/home/mrdevv/programas/java/eyealertbackend/src/main/java/com/mrdevv/exception/JwtExpiredException.java
 /home/mrdevv/programas/java/eyealertbackend/src/main/java/com/mrdevv/exception/ObjectDuplicateException.java
 /home/mrdevv/programas/java/eyealertbackend/src/main/java/com/mrdevv/exception/ObjectNotFoundException.java
+/home/mrdevv/programas/java/eyealertbackend/src/main/java/com/mrdevv/exception/PasswordNotMatchesException.java
 /home/mrdevv/programas/java/eyealertbackend/src/main/java/com/mrdevv/model/ConfigCuestionario.java
 /home/mrdevv/programas/java/eyealertbackend/src/main/java/com/mrdevv/model/CuestionarioConocimientos.java
 /home/mrdevv/programas/java/eyealertbackend/src/main/java/com/mrdevv/model/DatoInformativo.java
@@ -23,6 +29,7 @@
 /home/mrdevv/programas/java/eyealertbackend/src/main/java/com/mrdevv/model/Usuario.java
 /home/mrdevv/programas/java/eyealertbackend/src/main/java/com/mrdevv/payload/ResponseError.java
 /home/mrdevv/programas/java/eyealertbackend/src/main/java/com/mrdevv/payload/ResponseHandler.java
+/home/mrdevv/programas/java/eyealertbackend/src/main/java/com/mrdevv/payload/dto/PageableData.java
 /home/mrdevv/programas/java/eyealertbackend/src/main/java/com/mrdevv/payload/dto/cuestionarioConocimientos/CreateCuestionarioConocimientos.java
 /home/mrdevv/programas/java/eyealertbackend/src/main/java/com/mrdevv/payload/dto/cuestionarioConocimientos/CreateRespuestaCuestionarioConocimientos.java
 /home/mrdevv/programas/java/eyealertbackend/src/main/java/com/mrdevv/payload/dto/cuestionarioConocimientos/ResponseConfigCuestionarioDTO.java
@@ -76,6 +83,7 @@
 /home/mrdevv/programas/java/eyealertbackend/src/main/java/com/mrdevv/service/IRespuestaCuestionarioConocimientosService.java
 /home/mrdevv/programas/java/eyealertbackend/src/main/java/com/mrdevv/service/IRolService.java
 /home/mrdevv/programas/java/eyealertbackend/src/main/java/com/mrdevv/service/IUsuarioService.java
+/home/mrdevv/programas/java/eyealertbackend/src/main/java/com/mrdevv/service/auth/AuthenticationService.java
 /home/mrdevv/programas/java/eyealertbackend/src/main/java/com/mrdevv/service/auth/JwtService.java
 /home/mrdevv/programas/java/eyealertbackend/src/main/java/com/mrdevv/service/impl/ConfigCuestionarioServiceImpl.java
 /home/mrdevv/programas/java/eyealertbackend/src/main/java/com/mrdevv/service/impl/CuestionarioConocimientosServiceImpl.java
@@ -87,4 +95,5 @@
 /home/mrdevv/programas/java/eyealertbackend/src/main/java/com/mrdevv/service/impl/RespuestaCuestionarioConocimientosServiceImpl.java
 /home/mrdevv/programas/java/eyealertbackend/src/main/java/com/mrdevv/service/impl/RolServiceImpl.java
 /home/mrdevv/programas/java/eyealertbackend/src/main/java/com/mrdevv/service/impl/UsuarioServiceImpl.java
+/home/mrdevv/programas/java/eyealertbackend/src/main/java/com/mrdevv/utils/Roles.java
 /home/mrdevv/programas/java/eyealertbackend/src/main/java/com/mrdevv/utils/TipoResponse.java

@@ -6,7 +6,7 @@ import java.util.List;
 
 public interface IDatoInformativoService {
 
-    public List<ResponseDatoInformativoDTO> getDatosInformativoAleatorio();
+    public List<ResponseDatoInformativoDTO> getDatosInformativoAleatorio(Integer size);
 
     public List<ResponseDatoInformativoDTO> getAllDatosInformativos();
 

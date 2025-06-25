@@ -22,8 +22,8 @@ public class DatoInformativoServiceImpl implements IDatoInformativoService {
 
 
     @Override
-    public List<ResponseDatoInformativoDTO> getDatosInformativoAleatorio() {
-        List<DatoInformativo> datoInformativos = datoInformativoRepostory.findTop3Random();
+    public List<ResponseDatoInformativoDTO> getDatosInformativoAleatorio(Integer size) {
+        List<DatoInformativo> datoInformativos = datoInformativoRepostory.findTopRandom(size);
         return DatoInformativoMapper.toResponseDatosInformativosDTO(datoInformativos);
     }
 
