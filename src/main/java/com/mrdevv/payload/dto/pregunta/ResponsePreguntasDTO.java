@@ -7,5 +7,7 @@ import java.util.List;
 public record ResponsePreguntasDTO(
         Long id,
         String pregunta,
+        String nombre,
+        String tipo,
         List<ResponseRespuestasDTO> respuestas
 ) {}

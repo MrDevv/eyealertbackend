@@ -24,6 +24,8 @@ public class PreguntaMapper {
             responsePreguntasDTOS.add(new ResponsePreguntasDTO(
                     pregunta.getId(),
                     pregunta.getDescripcion(),
+                    pregunta.getNombre(),
+                    pregunta.getTipo(),
                     respuestasDTO
             ));
         });

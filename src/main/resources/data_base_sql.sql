@@ -34,6 +34,8 @@ create table trs_evaluaciones(
 create table mae_preguntas(
 	pregunta_id int not null auto_increment,
     descripcion varchar(255) not null,
+    nombre varchar(30) not null,
+    tipo varchar(10) not null,
     estado tinyint(1) not null default 1,
     primary key(pregunta_id)
 );

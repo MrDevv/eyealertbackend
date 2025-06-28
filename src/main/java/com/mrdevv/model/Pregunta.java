@@ -20,6 +20,8 @@ public class Pregunta {
     @Column(name = "pregunta_id")
     private Long id;
     private String descripcion;
+    private String nombre;
+    private String tipo;
     private Boolean estado;
 
     @ManyToMany(fetch = FetchType.LAZY)
