@@ -2,6 +2,7 @@ package com.mrdevv.controller;
 
 import com.mrdevv.model.Usuario;
 import com.mrdevv.payload.ResponseHandler;
+import com.mrdevv.payload.dto.ResponseWithPageable;
 import com.mrdevv.payload.dto.evaluacion.ResponseEvaluacionesByUserDTO;
 import com.mrdevv.payload.dto.usuario.*;
 import com.mrdevv.service.IEmailService;
@@ -34,11 +35,12 @@ public class UsuarioController {
         this.emailService = emailService;
     }
 
+//    TODO: Corregir metodo: el servicio debe devolver un ResponseWithPageable
     @GetMapping
     public ResponseEntity<Object> getUsuarios(@RequestParam(defaultValue = "0") Integer page, @RequestParam(defaultValue = "10") Integer size){
         Pageable pageable = PageRequest.of(page, size);
         Page<Usuario> usuarios = usuarioService.getUsuarios(pageable);
-        return ResponseHandler.getWithPageable(TipoResponse.GET, "lista de usuarios", usuarios);
+        return ResponseHandler.get(TipoResponse.GET, "lista de usuarios", usuarios);
     }
 
     @GetMapping("/{id}/evaluaciones/latest")
@@ -48,20 +50,20 @@ public class UsuarioController {
     }
 
     @GetMapping("/{id}/evaluaciones")
-    public ResponseEntity<Object> obtenerEvaluacionDeUnUsuario(@PathVariable Long id){
-        ResponseEvaluacionesByUserDTO evaluacionesByUser = evaluacionService.getEvaluacionesByUser(id);
+    public ResponseEntity<Object> obtenerEvaluacionDeUnUsuario(@PathVariable Long id, @RequestParam(defaultValue = "0") Integer page, @RequestParam(defaultValue = "10") Integer size){
+        ResponseWithPageable evaluacionesByUser = evaluacionService.getEvaluacionesByUser(id, page, size);
         return ResponseHandler.get(TipoResponse.GET, "lista de evaluaciones del usuario", evaluacionesByUser);
     }
 
     @GetMapping("/{id}/evaluaciones/latest-seven-days")
-    public ResponseEntity<Object> obtenerEvaluacionesUltimaSemanaDeUnUsuario(@PathVariable Long id){
-        ResponseEvaluacionesByUserDTO lastWeekEvaluationsByUser = evaluacionService.getLastWeekEvaluationsByUser(id);
+    public ResponseEntity<Object> obtenerEvaluacionesUltimaSemanaDeUnUsuario(@PathVariable Long id, @RequestParam(defaultValue = "0") Integer page, @RequestParam(defaultValue = "10") Integer size){
+        ResponseWithPageable lastWeekEvaluationsByUser = evaluacionService.getLastWeekEvaluationsByUser(id, page, size);
         return ResponseHandler.get(TipoResponse.GET, "lista de evaluaciones de la última semana del usuario", lastWeekEvaluationsByUser);
     }
 
     @GetMapping("/{id}/evaluaciones/last-month")
-    public ResponseEntity<Object> obtenerEvaluacionesDelUltimoMesDeUnUsuario(@PathVariable(name = "id") Long idUsuario){
-        ResponseEvaluacionesByUserDTO evaluacionesUltimoMes = evaluacionService.getLastMonthEvaluationsByUser(idUsuario);
+    public ResponseEntity<Object> obtenerEvaluacionesDelUltimoMesDeUnUsuario(@PathVariable(name = "id") Long idUsuario, @RequestParam(defaultValue = "0") Integer page, @RequestParam(defaultValue = "10") Integer size){
+        ResponseWithPageable evaluacionesUltimoMes = evaluacionService.getLastMonthEvaluationsByUser(idUsuario, page, size);
         return ResponseHandler.get(TipoResponse.GET, "lista de evaluaciones de la última semana de un usuario", evaluacionesUltimoMes);
     }
 

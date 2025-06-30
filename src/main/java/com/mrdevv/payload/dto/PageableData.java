@@ -6,6 +6,7 @@ public record PageableData(
         Boolean firstPage,
         Integer totalPages,
         Long totalElements,
-        Integer numberOfElements
+        Integer numberOfElements,
+        Long offset
 ) {
 }

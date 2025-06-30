@@ -1,12 +1,16 @@
 package com.mrdevv.service.impl;
 
 import com.mrdevv.model.Evaluacion;
+import com.mrdevv.payload.dto.ResponseWithPageable;
 import com.mrdevv.payload.dto.evaluacion.*;
 import com.mrdevv.payload.mapper.EvaluacionMapper;
 import com.mrdevv.repository.EvaluacionRepository;
 import com.mrdevv.service.IDetalleEvaluacionService;
 import com.mrdevv.service.IEvaluacionService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -32,8 +36,9 @@ public class EvaluacionServiceImpl implements IEvaluacionService {
 
     @Transactional(readOnly = true)
     @Override
-    public ResponseEvaluacionesByUserDTO getEvaluacionesByUser(Long id) {
-        List<Evaluacion> evaluaciones = evaluacionRepository.findAllByUsuarioIdOrderByFechaDesc(id);
+    public ResponseWithPageable getEvaluacionesByUser(Long id, Integer page, Integer size) {
+        Pageable pageable = PageRequest.of(page, size);
+        Page<Evaluacion> evaluaciones = evaluacionRepository.findAllByUsuarioIdOrderByFechaDesc(id, pageable);
         return EvaluacionMapper.toEvaluacionByUserDTO(evaluaciones);
     }
 
@@ -41,20 +46,22 @@ public class EvaluacionServiceImpl implements IEvaluacionService {
     @Override
     public ResponseEvaluacionesByUserDTO getLastestEvaluacionesByUser(Long id, Integer size) {
         List<Evaluacion> evaluaciones = evaluacionRepository.findLatestByUsuarioIdOrderByFechaDesc(id, size);
-        return EvaluacionMapper.toEvaluacionByUserDTO(evaluaciones);
+        return (ResponseEvaluacionesByUserDTO) EvaluacionMapper.toEvaluacionByUserDTO( evaluaciones);
     }
 
 
     @Transactional(readOnly = true)
     @Override
-    public ResponseEvaluacionesByUserDTO getLastWeekEvaluationsByUser(Long id) {
-        List<Evaluacion> evaluaciones = evaluacionRepository.findLastWeekEvaluationsByUser(id);
+    public ResponseWithPageable getLastWeekEvaluationsByUser(Long id, Integer page, Integer size) {
+        Pageable pageable = PageRequest.of(page, size);
+        Page<Evaluacion> evaluaciones = evaluacionRepository.findLastWeekEvaluationsByUser(id, pageable);
         return EvaluacionMapper.toEvaluacionByUserDTO(evaluaciones);
     }
 
     @Override
-    public ResponseEvaluacionesByUserDTO getLastMonthEvaluationsByUser(Long id) {
-        List<Evaluacion> evaluaciones = evaluacionRepository.findLastMonthEvaluationByUser(id);
+    public ResponseWithPageable getLastMonthEvaluationsByUser(Long id, Integer page, Integer size) {
+        Pageable pageable = PageRequest.of(page, size);
+        Page<Evaluacion> evaluaciones = evaluacionRepository.findLastMonthEvaluationByUser(id, pageable);
         return EvaluacionMapper.toEvaluacionByUserDTO(evaluaciones);
     }
 

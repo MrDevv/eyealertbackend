@@ -2,7 +2,11 @@ package com.mrdevv.payload.mapper;
 
 import com.mrdevv.model.Evaluacion;
 import com.mrdevv.model.Usuario;
+import com.mrdevv.payload.dto.PageableData;
+import com.mrdevv.payload.dto.ResponseWithPageable;
 import com.mrdevv.payload.dto.evaluacion.*;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 
 import java.util.List;
 
@@ -40,6 +44,37 @@ public class EvaluacionMapper {
                 nombre,
                 apellidos,
                 evaluacionSimpleDTO
+        );
+    }
+
+    public static ResponseWithPageable toEvaluacionByUserDTO(Iterable<Evaluacion> evaluacions) {
+        Page<Evaluacion> evaluaciones = (Page) evaluacions;
+        PageableData pageableData = PageableMapper.toPageableData(evaluaciones);
+
+        if (evaluaciones.isEmpty()) {
+            return null;
+        }
+
+        Long idUsuario = evaluaciones.getContent().get(0).getUsuario().getId();
+        String nombre = evaluaciones.getContent().get(0).getUsuario().getNombres();
+        String apellidos = evaluaciones.getContent().get(0).getUsuario().getApellidos();
+
+        List<ResponseEvaluacionSimpleDTO> evaluacionSimpleDTO = evaluaciones.stream()
+                .map(evaluacion -> {
+                            return toEvaluacionDTO(evaluacion);
+                        }
+                ).toList();
+
+        ResponseEvaluacionesByUserDTO responseEvaluacionesByUserDTO = new ResponseEvaluacionesByUserDTO(
+                idUsuario,
+                nombre,
+                apellidos,
+                evaluacionSimpleDTO
+        );
+
+        return new ResponseWithPageable(
+                responseEvaluacionesByUserDTO,
+                pageableData
         );
     }
 

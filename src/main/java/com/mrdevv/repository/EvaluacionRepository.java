@@ -1,6 +1,8 @@
 package com.mrdevv.repository;
 
 import com.mrdevv.model.Evaluacion;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
@@ -13,20 +15,20 @@ import java.util.List;
 public interface EvaluacionRepository extends JpaRepository<Evaluacion, Long> {
 
 
-    public List<Evaluacion> findAllByUsuarioIdOrderByFechaDesc(Long id);
+    public Page<Evaluacion> findAllByUsuarioIdOrderByFechaDesc(Long id, Pageable pageable);
 
     @Query(value = "SELECT * FROM trs_evaluaciones WHERE usuario_id = :id_usuario ORDER BY fecha DESC LIMIT :size", nativeQuery = true)
     public List<Evaluacion> findLatestByUsuarioIdOrderByFechaDesc(@Param("id_usuario") Long id, @Param("size") Integer size);
 
     @Query(value = "SELECT * FROM trs_evaluaciones WHERE fecha >= NOW() - INTERVAL 7 DAY AND usuario_id = :id_usuario ORDER BY fecha DESC", nativeQuery = true)
-    public List<Evaluacion> findLastWeekEvaluationsByUser(@Param("id_usuario") Long id);
+    public Page<Evaluacion> findLastWeekEvaluationsByUser(@Param("id_usuario") Long id, Pageable pageable);
 
     @Query(value = "SELECT * FROM trs_evaluaciones " +
             "WHERE fecha >= DATE_FORMAT(CURDATE(), '%Y-%m-01') " +
             "AND fecha < DATE_FORMAT(CURDATE() + INTERVAL 1 MONTH, '%Y-%m-01') " +
             "AND usuario_id = :id_usuario " +
             "ORDER BY fecha DESC;", nativeQuery = true)
-    public List<Evaluacion> findLastMonthEvaluationByUser(@Param("id_usuario") Long id);
+    public Page<Evaluacion> findLastMonthEvaluationByUser(@Param("id_usuario") Long id, Pageable pageable);
 
     @Modifying
     @Query(value = "UPDATE trs_evaluaciones SET resultado_acertado = :resultado WHERE evaluacion_id = :evaluacion_id", nativeQuery = true)
