@@ -18,6 +18,7 @@ public class GlobalExceptionHandler {
             Exception.class,
             ObjectDuplicateException.class,
             ObjectNotFoundException.class,
+            ObjectNotPermissions.class
     })
     public ResponseEntity<ResponseError> handlerAllException(Exception exception, HttpServletRequest request, HttpServletResponse response){
         ZoneId zoneId = ZoneId.of("America/Lima");
@@ -29,9 +30,28 @@ public class GlobalExceptionHandler {
             return handlerObjectNotFoundException(objectNotFoundException, request, response, localDateTime);
         }else if (exception instanceof PasswordNotMatchesException passwordNotMatchesException){
             return handlerPasswordNotMatchesException(passwordNotMatchesException, request, response, localDateTime);
+        }else if (exception instanceof ObjectNotPermissions objectNotPermissions){
+            return handlerObjectNotPermissions(objectNotPermissions, request, response, localDateTime);
         }
 
         return handlerException(exception, request, response, localDateTime);
+    }
+
+    private ResponseEntity<ResponseError> handlerObjectNotPermissions(ObjectNotPermissions objectNotPermissions, HttpServletRequest request, HttpServletResponse response, LocalDateTime localDateTime) {
+        int httpStatus = HttpStatus.FORBIDDEN.value();
+
+        ResponseError responseError = new ResponseError(
+                "Failed",
+                httpStatus,
+                request.getRequestURL().toString(),
+                request.getMethod(),
+                objectNotPermissions.getMessageFront(),
+                objectNotPermissions.getMessage(),
+                localDateTime,
+                null
+        );
+
+        return ResponseEntity.status(httpStatus).body(responseError);
     }
 
     private ResponseEntity<ResponseError> handlerPasswordNotMatchesException(PasswordNotMatchesException passwordNotMatchesException, HttpServletRequest request, HttpServletResponse response, LocalDateTime localDateTime) {

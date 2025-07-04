@@ -22,6 +22,7 @@ public interface DetalleEvaluacionRepository extends JpaRepository<DetalleEvalua
             "e.resultado_acertado, " +
             "u.nombres, " +
             "u.apellidos, " +
+            "u.email, " +
             "p.descripcion 'pregunta', " +
             "r.descripcion 'respuesta', " +
             "de.respuesta_texto " +

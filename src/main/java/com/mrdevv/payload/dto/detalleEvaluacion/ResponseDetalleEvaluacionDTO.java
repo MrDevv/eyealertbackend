@@ -14,6 +14,7 @@ public record ResponseDetalleEvaluacionDTO(
     Long evaluacionId,
     String nombres,
     String apellidos,
+    String email,
     @JsonFormat(pattern = "dd/MM/yyyy HH:mm")
     LocalDateTime fecha,
     @JsonProperty("tiempo_prediccion_inicio")

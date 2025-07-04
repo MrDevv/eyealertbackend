@@ -36,6 +36,7 @@ public class DetalleEvaluacionMapper {
         String resultadoEspecialista;
         String nombres = evaluaciones.get(0)[8].toString();
         String apellidos = evaluaciones.get(0)[9].toString();
+        String email = evaluaciones.get(0)[10].toString();
 
         if (evaluaciones.get(0)[7]!=null){
             resultadoEspecialista = (Boolean) evaluaciones.get(0)[7] ? "acertado" : "no acertado";
@@ -44,13 +45,13 @@ public class DetalleEvaluacionMapper {
         }
 
         listPreguntasRespuestas = evaluaciones.stream().map(evaluacion -> {
-                    String pregunta = evaluacion[10].toString();
+                    String pregunta = evaluacion[11].toString();
                     String respuesta;
 
-                    if (evaluacion[11] != null) {
-                        respuesta = evaluacion[11].toString();
-                    }else{
+                    if (evaluacion[12] != null) {
                         respuesta = evaluacion[12].toString();
+                    }else{
+                        respuesta = evaluacion[13].toString();
                     }
 
                     return new ResponsePreguntaRespuestaSimpleDTO(
@@ -66,6 +67,7 @@ public class DetalleEvaluacionMapper {
                 evaluacionId,
                 nombres,
                 apellidos,
+                 email,
                  fecha,
                 tiempoPrediccionInicio,
                 tiempoPrediccionFin,
