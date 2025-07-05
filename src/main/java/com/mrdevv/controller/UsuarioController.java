@@ -9,16 +9,12 @@ import com.mrdevv.service.IEmailService;
 import com.mrdevv.service.IEvaluacionService;
 import com.mrdevv.service.IUsuarioService;
 import com.mrdevv.utils.TipoResponse;
-import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
-import org.springframework.data.repository.query.Param;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
 
 @RestController
 @RequestMapping("/usuarios")
@@ -67,6 +63,12 @@ public class UsuarioController {
         return ResponseHandler.get(TipoResponse.GET, "lista de evaluaciones de la última semana de un usuario", evaluacionesUltimoMes);
     }
 
+    @PatchMapping("/{id}/update-password")
+    public ResponseEntity<Object> actualizarPassword(@RequestBody UpdatePasswordDTO updatePasswordDTO, @PathVariable(name = "id") Long usuarioId){
+        usuarioService.updatePassword(updatePasswordDTO, usuarioId);
+        return ResponseHandler.get(TipoResponse.PATCH, "contraseña actualizada correctamente", null);
+    }
+
     @PostMapping("/recover-password")
     public ResponseEntity<Object> enviarEmailReestablecerPassword(@RequestBody EmailDTO emailDTO){
         ResponseCodeDTO codeDTO = usuarioService.sendCodeEmail(emailDTO);
@@ -74,10 +76,10 @@ public class UsuarioController {
     }
 
     @PatchMapping("/{id}/reset-password")
-    public ResponseEntity<Object> reestablecerPassword(@RequestBody UpdatePasswordDTO updatePasswordDTO, @PathVariable(name = "id") Long idUsuario){
+    public ResponseEntity<Object> reestablecerPassword(@RequestBody ResetPasswordDTO updatePasswordDTO, @PathVariable(name = "id") Long idUsuario){
         System.out.println(idUsuario);
         System.out.println(updatePasswordDTO.newPassword());
-        usuarioService.updatePassword(updatePasswordDTO.newPassword(), idUsuario);
+        usuarioService.resetPassword(updatePasswordDTO.newPassword(), idUsuario);
         return ResponseHandler.get(TipoResponse.PATCH, "se actualizó correctamente la contraseña del usuario", null);
     }
 

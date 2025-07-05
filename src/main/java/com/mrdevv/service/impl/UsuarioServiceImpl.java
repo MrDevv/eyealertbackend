@@ -79,7 +79,26 @@ public class UsuarioServiceImpl implements IUsuarioService {
 
     @Transactional
     @Override
-    public void updatePassword(String newPassword, Long usuarioId) {
+    public void updatePassword(UpdatePasswordDTO updatePasswordDTO, Long usuarioId) {
+        Usuario usuario = usuarioRepository.findById(usuarioId).orElseThrow(() ->
+                new ObjectNotFoundException(
+                        "El usuario con ID [" + usuarioId + "] no se encontró en la base de datos.",
+                        "No se encontró a este usuario."));
+
+        if (!passwordEncoder.matches(updatePasswordDTO.passwordCurrent(), usuario.getPassword())){
+            throw new PasswordNotMatchesException(
+                    "El password ingresado no coincide con el password en la base de datos",
+                    "La contraseña ingresada no coincide con la contraseña actual, verifique los datos."
+            );
+        }
+
+        validarPassword(updatePasswordDTO.newPassword(), updatePasswordDTO.repeatedPassword());
+        usuarioRepository.updatePassword(passwordEncoder.encode(updatePasswordDTO.newPassword()), usuarioId);
+    }
+
+    @Transactional
+    @Override
+    public void resetPassword(String newPassword, Long usuarioId) {
         usuarioRepository.updatePassword(newPassword, usuarioId);
     }
 
