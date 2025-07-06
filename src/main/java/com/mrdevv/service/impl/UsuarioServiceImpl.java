@@ -13,6 +13,8 @@ import com.mrdevv.repository.UsuarioRepository;
 import com.mrdevv.service.IEmailService;
 import com.mrdevv.service.IRolService;
 import com.mrdevv.service.IUsuarioService;
+import com.mrdevv.service.auth.AuthenticationService;
+import com.mrdevv.service.auth.JwtService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -20,7 +22,9 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 @Service
@@ -31,12 +35,17 @@ public class UsuarioServiceImpl implements IUsuarioService {
     private IRolService rolService;
     private PasswordEncoder passwordEncoder;
 
+    private JwtService jwtService;
+//    private AuthenticationService authenticationService;
+
     @Autowired
-    public UsuarioServiceImpl(UsuarioRepository usuarioRepository, IEmailService emailService, IRolService rolService, PasswordEncoder passwordEncoder) {
+    public UsuarioServiceImpl(UsuarioRepository usuarioRepository, IEmailService emailService, IRolService rolService, PasswordEncoder passwordEncoder, JwtService jwtService) {
         this.usuarioRepository = usuarioRepository;
         this.emailService = emailService;
         this.rolService = rolService;
         this.passwordEncoder = passwordEncoder;
+        this.jwtService = jwtService;
+//        this.authenticationService = authenticationService;
     }
 
     @Override
@@ -77,6 +86,28 @@ public class UsuarioServiceImpl implements IUsuarioService {
         usuarioRepository.updateEstadoCuestionarioCompletado(usuarioId);
     }
 
+    public Map<String, Object> generateExtraClaims(Usuario usuario){
+        Map<String, Object> extraClaims = new HashMap<>();
+
+        extraClaims.put("name", usuario.getNombres());
+        extraClaims.put("role", "ROLE_" + usuario.getRol().getDescripcion());
+
+        return extraClaims;
+    }
+
+    @Transactional
+    @Override
+    public ResponseUsuarioDTO updateUsuario(UpdateUsuarioDTO usuarioDTO, Long usuarioId) {
+        Usuario usuario = findById(usuarioId);
+        usuario.setApellidos(usuarioDTO.apellidos());
+        usuario.setNombres(usuarioDTO.nombres());
+        usuario.setEmail(usuarioDTO.email());
+
+        Usuario usuarioUpdate = usuarioRepository.save(usuario);
+        String jwt = jwtService.generateToken(usuarioUpdate);
+        return UsuarioMapper.toUsuarioDTO(usuarioUpdate, jwt);
+    }
+
     @Transactional
     @Override
     public void updatePassword(UpdatePasswordDTO updatePasswordDTO, Long usuarioId) {
@@ -115,6 +146,12 @@ public class UsuarioServiceImpl implements IUsuarioService {
     @Override
     public Optional<Usuario> findByEmail(String email) {
         return usuarioRepository.findByEmail(email);
+    }
+
+    public Usuario findById(Long usuarioId){
+        return usuarioRepository.findById(usuarioId).orElseThrow(() -> new ObjectNotFoundException(
+                "El objecto [MAE_USUARIO] con ID " + usuarioId + " no fue encontrado en la base de datos",
+                "El usuario con ID " + usuarioId + " no fue encontrado"));
     }
 
     public void validarPassword(String password, String passwordRepetida){

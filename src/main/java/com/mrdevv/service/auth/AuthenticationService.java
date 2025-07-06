@@ -40,15 +40,6 @@ public class AuthenticationService {
         this.httpServletRequest = httpServletRequest;
     }
 
-    public Map<String, Object> generateExtraClaims(Usuario usuario){
-        Map<String, Object> extraClaims = new HashMap<>();
-
-        extraClaims.put("name", usuario.getNombres());
-        extraClaims.put("role", "ROLE_" + usuario.getRol().getDescripcion());
-
-        return extraClaims;
-    }
-
     public ResponseUsuarioDTO login(@Valid AuthUsuarioDTO authUsuarioDTO){
         Authentication authentication = new UsernamePasswordAuthenticationToken(
                 authUsuarioDTO.email(),
@@ -61,13 +52,13 @@ public class AuthenticationService {
         }
 
         UserDetails user = usuarioService.findByEmail(authUsuarioDTO.email()).get();
-        String jwt = jwtService.generateToken(user, generateExtraClaims((Usuario) user));
+        String jwt = jwtService.generateToken(user);
         return UsuarioMapper.toUsuarioDTO((Usuario) user, jwt);
     }
 
     public ResponseUsuarioDTO createUsuario(@Valid CreateUsuarioDTO usuarioDTO){
         Usuario usuario = usuarioService.createUsuario(usuarioDTO);
-        String jwt = jwtService.generateToken(usuario, generateExtraClaims(usuario));
+        String jwt = jwtService.generateToken(usuario);
         return UsuarioMapper.toUsuarioDTO(usuario, jwt);
     }
 

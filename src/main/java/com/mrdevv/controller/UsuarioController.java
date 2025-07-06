@@ -9,6 +9,7 @@ import com.mrdevv.service.IEmailService;
 import com.mrdevv.service.IEvaluacionService;
 import com.mrdevv.service.IUsuarioService;
 import com.mrdevv.utils.TipoResponse;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -61,6 +62,12 @@ public class UsuarioController {
     public ResponseEntity<Object> obtenerEvaluacionesDelUltimoMesDeUnUsuario(@PathVariable(name = "id") Long idUsuario, @RequestParam(defaultValue = "0") Integer page, @RequestParam(defaultValue = "10") Integer size){
         ResponseWithPageable evaluacionesUltimoMes = evaluacionService.getLastMonthEvaluationsByUser(idUsuario, page, size);
         return ResponseHandler.get(TipoResponse.GET, "lista de evaluaciones de la última semana de un usuario", evaluacionesUltimoMes);
+    }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<Object> actualizarUsuario(@RequestBody @Valid UpdateUsuarioDTO usuarioDTO, @PathVariable(name = "id") Long usuarioId){
+        ResponseUsuarioDTO usuarioUpdatedDTO = usuarioService.updateUsuario(usuarioDTO, usuarioId);
+        return ResponseHandler.get(TipoResponse.UPDATE, "se actualizó el usuario correctamente", usuarioUpdatedDTO);
     }
 
     @PatchMapping("/{id}/update-password")

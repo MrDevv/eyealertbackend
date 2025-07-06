@@ -1,5 +1,6 @@
 package com.mrdevv.service.auth;
 
+import com.mrdevv.model.Usuario;
 import io.jsonwebtoken.Claims;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -10,6 +11,7 @@ import org.springframework.stereotype.Service;
 
 import javax.crypto.SecretKey;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.Map;
 
 @Service
@@ -21,9 +23,20 @@ public class JwtService {
     @Value("${security.jwt.secret-key}")
     private String SECRET_KEY;
 
-    String generateToken(UserDetails userDetails, Map<String, Object> extraClaims){
+    public Map<String, Object> generateExtraClaims(Usuario usuario){
+        Map<String, Object> extraClaims = new HashMap<>();
+
+        extraClaims.put("name", usuario.getNombres());
+        extraClaims.put("role", "ROLE_" + usuario.getRol().getDescripcion());
+
+        return extraClaims;
+    }
+
+    public String generateToken(UserDetails userDetails){
         Date issuedAt = new Date(System.currentTimeMillis());
         Date expiration = new Date((EXPIRATION_IN_MINUTES * 60 * 1000) + issuedAt.getTime());
+
+        Map<String, Object> extraClaims = generateExtraClaims((Usuario) userDetails);
 
         String jwt = Jwts.builder()
                 .header()

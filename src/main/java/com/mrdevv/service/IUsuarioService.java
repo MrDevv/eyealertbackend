@@ -17,6 +17,8 @@ public interface IUsuarioService {
 
     void updateEstadoCuestionarioCompletado(Long usuarioId);
 
+    ResponseUsuarioDTO updateUsuario(UpdateUsuarioDTO usuarioDTO, Long usuarioId);
+
     void updatePassword(UpdatePasswordDTO updatePasswordDTO, Long usuarioId);
 
     void resetPassword(String newPassword, Long usuarioId);
