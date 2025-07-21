@@ -1,6 +1,8 @@
 package com.mrdevv.repository;
 
 import com.mrdevv.model.DatoInformativo;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
@@ -18,6 +20,6 @@ public interface DatoInformativoRepostory extends JpaRepository<DatoInformativo,
     DatoInformativo findDatoInformativoRandom();
 
     @Query(value = "SELECT * FROM mae_datos_informativos ORDER BY dato_informativo_id DESC", nativeQuery = true)
-    List<DatoInformativo> findAllDatosInformativos();
+    Page<DatoInformativo> findAllDatosInformativos(Pageable pageable);
 
 }

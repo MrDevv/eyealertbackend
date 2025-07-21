@@ -2,6 +2,7 @@ package com.mrdevv.controller;
 
 
 import com.mrdevv.payload.ResponseHandler;
+import com.mrdevv.payload.dto.ResponseWithPageable;
 import com.mrdevv.payload.dto.datoInformativo.ResponseDatoInformativoDTO;
 import com.mrdevv.service.IDatoInformativoService;
 import com.mrdevv.utils.TipoResponse;
@@ -34,8 +35,8 @@ public class DatoInformativoController {
     }
 
     @GetMapping
-    public ResponseEntity<Object> getDatosInformativos(){
-        List<ResponseDatoInformativoDTO> datoInformativo = datoInformativoService.getAllDatosInformativos();
+    public ResponseEntity<Object> getDatosInformativos(@RequestParam(defaultValue = "0") Integer page, @RequestParam(defaultValue = "10") Integer size){
+        ResponseWithPageable datoInformativo = datoInformativoService.getAllDatosInformativos(page, size);
         return ResponseHandler.get(TipoResponse.GET, "lista de todos los datos informativos", datoInformativo);
     }
 

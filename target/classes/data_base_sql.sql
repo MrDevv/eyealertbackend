@@ -99,3 +99,29 @@ create table config_cuestionario(
     dias_espera int not null,
     primary key(config_cuestionario_id)
 );
+
+create table trs_quizzes(
+    quizz_id int not null auto_increment,
+    puntaje int not null,
+    usuario_id int not null,
+    fecha datetime not null default current_timestamp,
+    primary key(quizz_id),
+    foreign key(usuario_id) references mae_usuarios(usuario_id)
+)
+
+create table mae_preguntas_quizz(
+    pregunta_quizz_id int not null auto_increment,
+    pregunta longtext not null,
+    categoria varchar(100) not null,
+    estado tinyint(1) not null,
+    primary key(pregunta_quizz_id)
+)
+
+create table mae_respuestas_quizz(
+    respuesta_quizz_id int not null auto_increment,
+    respuesta longtext not null,
+    es_correcta tinyint(1) not null,
+    pregunta_quizz_id int not null,
+    primary key(respuesta_quizz_id),
+    foreign key(pregunta_quizz_id) references mae_preguntas_quizz(pregunta_quizz_id)
+)

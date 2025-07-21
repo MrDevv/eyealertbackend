@@ -1,11 +1,15 @@
 package com.mrdevv.service.impl;
 
 import com.mrdevv.model.DatoInformativo;
+import com.mrdevv.payload.dto.ResponseWithPageable;
 import com.mrdevv.payload.dto.datoInformativo.ResponseDatoInformativoDTO;
 import com.mrdevv.payload.mapper.DatoInformativoMapper;
 import com.mrdevv.repository.DatoInformativoRepostory;
 import com.mrdevv.service.IDatoInformativoService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -28,8 +32,9 @@ public class DatoInformativoServiceImpl implements IDatoInformativoService {
     }
 
     @Override
-    public List<ResponseDatoInformativoDTO> getAllDatosInformativos() {
-        List<DatoInformativo> datoInformativos = datoInformativoRepostory.findAllDatosInformativos();
+    public ResponseWithPageable getAllDatosInformativos(Integer page, Integer size) {
+        Pageable pageable = PageRequest.of(page, size);
+        Page<DatoInformativo> datoInformativos = datoInformativoRepostory.findAllDatosInformativos(pageable);
         return DatoInformativoMapper.toResponseDatosInformativosDTO(datoInformativos);
     }
 
