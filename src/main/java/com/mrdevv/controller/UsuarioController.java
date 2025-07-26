@@ -4,9 +4,11 @@ import com.mrdevv.model.Usuario;
 import com.mrdevv.payload.ResponseHandler;
 import com.mrdevv.payload.dto.ResponseWithPageable;
 import com.mrdevv.payload.dto.evaluacion.ResponseEvaluacionesByUserDTO;
+import com.mrdevv.payload.dto.quizz.ResponsePuntajeUsuario;
 import com.mrdevv.payload.dto.usuario.*;
 import com.mrdevv.service.IEmailService;
 import com.mrdevv.service.IEvaluacionService;
+import com.mrdevv.service.IQuizzService;
 import com.mrdevv.service.IUsuarioService;
 import com.mrdevv.utils.TipoResponse;
 import jakarta.validation.Valid;
@@ -24,12 +26,14 @@ public class UsuarioController {
     private IUsuarioService usuarioService;
     private IEvaluacionService evaluacionService;
     private IEmailService emailService;
+    private IQuizzService quizzService;
 
     @Autowired
-    public UsuarioController(IUsuarioService usuarioService, IEvaluacionService evaluacionService, IEmailService emailService){
+    public UsuarioController(IUsuarioService usuarioService, IEvaluacionService evaluacionService, IEmailService emailService, IQuizzService quizzService){
         this.usuarioService = usuarioService;
         this.evaluacionService = evaluacionService;
         this.emailService = emailService;
+        this.quizzService = quizzService;
     }
 
 //    TODO: Corregir metodo: el servicio debe devolver un ResponseWithPageable
@@ -68,6 +72,12 @@ public class UsuarioController {
     public ResponseEntity<Object> actualizarUsuario(@RequestBody @Valid UpdateUsuarioDTO usuarioDTO, @PathVariable(name = "id") Long usuarioId){
         ResponseUsuarioDTO usuarioUpdatedDTO = usuarioService.updateUsuario(usuarioDTO, usuarioId);
         return ResponseHandler.get(TipoResponse.UPDATE, "se actualizó el usuario correctamente", usuarioUpdatedDTO);
+    }
+
+    @GetMapping("/{id}/puntaje")
+    public ResponseEntity<Object> obtenerPuntajeUsuario(@PathVariable(name = "id") Long usuarioId){
+        ResponsePuntajeUsuario puntajeUsuario = quizzService.obtenerPuntajeUsuario(usuarioId);
+        return ResponseHandler.get(TipoResponse.GET, "puntaje del usuario", puntajeUsuario);
     }
 
     @PatchMapping("/{id}/update-password")

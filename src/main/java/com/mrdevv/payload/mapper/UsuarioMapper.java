@@ -5,6 +5,7 @@ import com.mrdevv.model.Usuario;
 import com.mrdevv.payload.dto.rol.ResponseRolDTO;
 import com.mrdevv.payload.dto.usuario.CreateUsuarioDTO;
 import com.mrdevv.payload.dto.usuario.ResponseUsuarioDTO;
+import com.mrdevv.payload.dto.usuario.ResponseUsuarioSimpleDTO;
 import com.mrdevv.payload.dto.usuario.UpdateUsuarioDTO;
 
 public class UsuarioMapper {
@@ -22,13 +23,12 @@ public class UsuarioMapper {
         );
     }
 
-    public static Usuario toUsuarioSimpleEntity(UpdateUsuarioDTO usuarioDTO, Long usuarioId){
-        return Usuario.builder()
-                .id(usuarioId)
-                .nombres(usuarioDTO.nombres())
-                .apellidos(usuarioDTO.apellidos())
-                .email(usuarioDTO.email())
-                .build();
+    public static ResponseUsuarioSimpleDTO toUsuarioSimpleDTO(Usuario usuario){
+        return new ResponseUsuarioSimpleDTO(
+                usuario.getId(),
+                usuario.getNombres(),
+                usuario.getApellidos()
+        );
     }
 
     public static Usuario toUsuarioEntity(CreateUsuarioDTO usuarioDTO, ResponseRolDTO rolDTO, Boolean cuestionarioCompletado){

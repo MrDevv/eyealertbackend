@@ -75,8 +75,10 @@ public class HttpSecurityConfig {
             authHttpRequests.requestMatchers(HttpMethod.PATCH, "/evaluaciones/{id}").hasRole(Roles.ADMINISTRADOR.getRol());
             authHttpRequests.requestMatchers(HttpMethod.GET, "/evaluaciones").hasRole(Roles.ADMINISTRADOR.getRol());
 
-            authHttpRequests.requestMatchers(HttpMethod.GET, "/cuestionarioConocimientos").hasRole(Roles.ADMINISTRADOR.name());
-            authHttpRequests.requestMatchers(HttpMethod.GET, "/cuestionarioConocimientos/indice-conocimiento").hasRole(Roles.ADMINISTRADOR.name());
+            authHttpRequests.requestMatchers(HttpMethod.GET, "/cuestionarioConocimientos").hasRole(Roles.ADMINISTRADOR.getRol());
+            authHttpRequests.requestMatchers(HttpMethod.GET, "/cuestionarioConocimientos/indice-conocimiento").hasRole(Roles.ADMINISTRADOR.getRol());
+
+            authHttpRequests.requestMatchers(HttpMethod.GET, "/quizzes").hasRole(Roles.ADMINISTRADOR.getRol());
 
             authHttpRequests.requestMatchers(HttpMethod.POST, "/auth/login").permitAll();
             authHttpRequests.requestMatchers(HttpMethod.POST, "/auth/create-usuario").permitAll();

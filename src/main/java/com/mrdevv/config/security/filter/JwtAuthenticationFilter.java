@@ -3,6 +3,7 @@ package com.mrdevv.config.security.filter;
 import com.mrdevv.exception.ObjectNotFoundException;
 import com.mrdevv.service.IUsuarioService;
 import com.mrdevv.service.auth.JwtService;
+import com.mrdevv.utils.Roles;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;

@@ -2,7 +2,6 @@ package com.mrdevv.payload.dto.cuestionarioConocimientos;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.mrdevv.payload.dto.usuario.ResponseUsuarioSimpleDTO;
 
 import java.time.LocalDateTime;
 

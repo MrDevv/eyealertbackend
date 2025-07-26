@@ -5,7 +5,6 @@ import com.mrdevv.model.Usuario;
 import com.mrdevv.payload.dto.cuestionarioConocimientos.CreateCuestionarioConocimientos;
 import com.mrdevv.payload.dto.cuestionarioConocimientos.ResponseCuestionarioConocimientosDTO;
 import com.mrdevv.payload.dto.cuestionarioConocimientos.ResponseIndiceConocimientoDTO;
-import com.mrdevv.payload.dto.usuario.ResponseUsuarioSimpleDTO;
 
 import java.util.List;
 
