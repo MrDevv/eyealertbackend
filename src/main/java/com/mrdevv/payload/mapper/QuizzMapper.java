@@ -3,8 +3,10 @@ package com.mrdevv.payload.mapper;
 import com.mrdevv.model.Quizz;
 import com.mrdevv.payload.dto.PageableData;
 import com.mrdevv.payload.dto.ResponseWithPageable;
+import com.mrdevv.payload.dto.quizz.PuestoUsuarioDTO;
 import com.mrdevv.payload.dto.quizz.ResponsePuntajeUsuario;
 import com.mrdevv.payload.dto.quizz.ResponseQuizz;
+import com.mrdevv.payload.dto.quizz.ResponseRankingDTO;
 import org.springframework.data.domain.Page;
 
 import java.util.List;
@@ -38,5 +40,44 @@ public class QuizzMapper {
         Integer ultimoPuntaje = ((Number) puntaje[1]).intValue();
 
         return new ResponsePuntajeUsuario(puntajeMasAlto, ultimoPuntaje);
+    }
+
+    public static ResponseRankingDTO toRankingDTOList(List<Object> quizzList, Object puestoUsuario){
+
+        if (quizzList.isEmpty()){
+            return null;
+        }
+
+        List<PuestoUsuarioDTO> rankingList = quizzList.stream().map(quizz -> {
+            Object[] result = (Object[]) quizz;
+
+            Integer puesto = ((Number) result[0]).intValue();
+            Integer usuarioId = ((Number) result[1]).intValue();
+            String nombres = result[2].toString().split(" ")[0];
+            String apellidos = result[3].toString().split(" ")[0];
+            Integer puntaje = ((Number) result[4]).intValue();
+
+            return new PuestoUsuarioDTO(
+                    puesto,
+                    usuarioId,
+                    nombres + " " + apellidos,
+                    puntaje
+            );
+        }).toList();
+
+        Object[] puestoUsuarioResp = (Object[]) puestoUsuario;
+
+        if (puestoUsuarioResp == null){
+            return new ResponseRankingDTO(rankingList, null);
+        }
+
+        Integer puesto = ((Number) puestoUsuarioResp[0]).intValue();
+        Integer usuarioId = ((Number) puestoUsuarioResp[1]).intValue();
+        String nombres = puestoUsuarioResp[2].toString().split(" ")[0];
+        String apellidos = puestoUsuarioResp[3].toString().split(" ")[0];
+
+        PuestoUsuarioDTO puestoUsuarioCurrent = new PuestoUsuarioDTO(puesto, usuarioId, nombres + " " + apellidos, null);
+
+        return new ResponseRankingDTO(rankingList, puestoUsuarioCurrent);
     }
 }
