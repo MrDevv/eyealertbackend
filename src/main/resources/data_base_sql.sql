@@ -113,7 +113,7 @@ create table mae_preguntas_quizz(
     pregunta_quizz_id int not null auto_increment,
     pregunta longtext not null,
     categoria varchar(100) not null,
-    estado tinyint(1) not null,
+    estado tinyint(1) not null default 1,
     primary key(pregunta_quizz_id)
 )
 
@@ -121,6 +121,7 @@ create table mae_respuestas_quizz(
     respuesta_quizz_id int not null auto_increment,
     respuesta longtext not null,
     es_correcta tinyint(1) not null,
+    explicacion longtext null,
     pregunta_quizz_id int not null,
     primary key(respuesta_quizz_id),
     foreign key(pregunta_quizz_id) references mae_preguntas_quizz(pregunta_quizz_id)
