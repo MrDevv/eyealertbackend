@@ -2,7 +2,9 @@ package com.mrdevv.service.impl;
 
 import com.mrdevv.model.Quizz;
 import com.mrdevv.payload.dto.ResponseWithPageable;
+import com.mrdevv.payload.dto.quizz.CreateQuizzDTO;
 import com.mrdevv.payload.dto.quizz.ResponsePuntajeUsuario;
+import com.mrdevv.payload.dto.quizz.ResponseQuizzDTO;
 import com.mrdevv.payload.dto.quizz.ResponseRankingDTO;
 import com.mrdevv.payload.mapper.QuizzMapper;
 import com.mrdevv.repository.QuizzRepository;
@@ -51,5 +53,11 @@ public class QuizzServiceImpl implements IQuizzService {
         List<Object> ranking = quizzesRespository.obtenerRankingLimit5();
         Object puestoActualUsuario = quizzesRespository.obtenerPuestoActualUsuario(email);
         return QuizzMapper.toRankingDTOList(ranking, puestoActualUsuario);
+    }
+
+    @Override
+    public ResponseQuizzDTO crearQuizz(CreateQuizzDTO quizzDTO) {
+        Quizz quizz = quizzesRespository.save(QuizzMapper.toQuizzEntity(quizzDTO));
+        return QuizzMapper.toQuizzDTO(quizz);
     }
 }

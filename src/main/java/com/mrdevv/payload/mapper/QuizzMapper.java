@@ -1,12 +1,10 @@
 package com.mrdevv.payload.mapper;
 
 import com.mrdevv.model.Quizz;
+import com.mrdevv.model.Usuario;
 import com.mrdevv.payload.dto.PageableData;
 import com.mrdevv.payload.dto.ResponseWithPageable;
-import com.mrdevv.payload.dto.quizz.PuestoUsuarioDTO;
-import com.mrdevv.payload.dto.quizz.ResponsePuntajeUsuario;
-import com.mrdevv.payload.dto.quizz.ResponseQuizz;
-import com.mrdevv.payload.dto.quizz.ResponseRankingDTO;
+import com.mrdevv.payload.dto.quizz.*;
 import org.springframework.data.domain.Page;
 
 import java.util.List;
@@ -17,8 +15,8 @@ public class QuizzMapper {
 
         PageableData pageableData = PageableMapper.toPageableData(quizzes);
 
-        List<ResponseQuizz> responseQuizzes = quizzes.stream().map(quizz -> {
-            return new ResponseQuizz(
+        List<ResponseQuizzDTO> responseQuizzes = quizzes.stream().map(quizz -> {
+            return new ResponseQuizzDTO(
                     quizz.getQuizzId(),
                     quizz.getPuntaje(),
                     quizz.getFecha(),
@@ -27,6 +25,21 @@ public class QuizzMapper {
         }).toList();
 
         return new ResponseWithPageable(responseQuizzes, pageableData);
+    }
+
+    public static ResponseQuizzDTO toQuizzDTO(Quizz quizz){
+        return new ResponseQuizzDTO(
+                quizz.getQuizzId(),
+                quizz.getPuntaje(),
+                quizz.getFecha(),
+                UsuarioMapper.toUsuarioSimpleDTO(quizz.getUsuario()));
+    }
+
+    public static Quizz toQuizzEntity(CreateQuizzDTO createQuizzDTO){
+        return Quizz.builder()
+                .puntaje(createQuizzDTO.puntaje())
+                .usuario(Usuario.builder().id(createQuizzDTO.usuarioId()).build())
+                .build();
     }
 
     public static ResponsePuntajeUsuario toPuntajeUsuarioDTO(Object puntajeUsuario){
