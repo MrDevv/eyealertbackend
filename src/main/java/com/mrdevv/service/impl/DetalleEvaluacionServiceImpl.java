@@ -1,5 +1,6 @@
 package com.mrdevv.service.impl;
 
+import com.mrdevv.exception.ObjectNotFoundException;
 import com.mrdevv.exception.ObjectNotPermissions;
 import com.mrdevv.model.DetalleEvaluacion;
 import com.mrdevv.payload.dto.detalleEvaluacion.CreateDetailEvaluationDTO;
@@ -29,6 +30,10 @@ public class DetalleEvaluacionServiceImpl implements IDetalleEvaluacionService {
     @Override
     public ResponseDetalleEvaluacionDTO getDetalleEvaluacion(Long evaluacionId) {
         List<Object[]> detalleEvaluaciones =  detalleEvaluacionRepository.findDetalleEvaluacion(evaluacionId);
+        if (detalleEvaluaciones.size() == 0){
+            throw new ObjectNotFoundException("No se encontró el recurso en la base de datos", "No existe la evaluación con el id ingresado");
+        }
+
         String email = detalleEvaluaciones.get(0)[10].toString();
 
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
