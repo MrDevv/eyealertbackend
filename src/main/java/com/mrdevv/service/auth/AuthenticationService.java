@@ -1,15 +1,13 @@
 package com.mrdevv.service.auth;
 
-import com.mrdevv.exception.JwtExpiredException;
 import com.mrdevv.exception.ObjectNotFoundException;
+import com.mrdevv.model.PasswordResetToken;
 import com.mrdevv.model.Usuario;
-import com.mrdevv.payload.dto.usuario.AuthUsuarioDTO;
-import com.mrdevv.payload.dto.usuario.CreateUsuarioDTO;
-import com.mrdevv.payload.dto.usuario.ResponseUsuarioDTO;
+import com.mrdevv.payload.dto.usuario.*;
 import com.mrdevv.payload.mapper.UsuarioMapper;
+import com.mrdevv.service.IEmailService;
+import com.mrdevv.service.IPasswordResetTokenService;
 import com.mrdevv.service.IUsuarioService;
-import io.jsonwebtoken.ExpiredJwtException;
-import io.jsonwebtoken.JwtException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,25 +17,30 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
-import java.util.HashMap;
-import java.util.Map;
+import java.time.LocalDateTime;
+import java.util.UUID;
 
 @Service
 public class AuthenticationService {
 
     private AuthenticationManager authenticationManager;
     private IUsuarioService usuarioService;
+    private IEmailService emailService;
+    private IPasswordResetTokenService passwordResetTokenService;
     private JwtService jwtService;
 
     private HttpServletRequest httpServletRequest;
 
     @Autowired
-    public AuthenticationService(AuthenticationManager authenticationManager, IUsuarioService usuarioService, JwtService jwtService, HttpServletRequest httpServletRequest){
+    public AuthenticationService(AuthenticationManager authenticationManager, IUsuarioService usuarioService, JwtService jwtService, HttpServletRequest httpServletRequest, IEmailService emailService, IPasswordResetTokenService passwordResetTokenService){
         this.authenticationManager = authenticationManager;
         this.usuarioService = usuarioService;
         this.jwtService = jwtService;
         this.httpServletRequest = httpServletRequest;
+        this.emailService = emailService;
+        this.passwordResetTokenService = passwordResetTokenService;
     }
 
     public ResponseUsuarioDTO login(@Valid AuthUsuarioDTO authUsuarioDTO){
@@ -68,5 +71,22 @@ public class AuthenticationService {
         String userEmail = (String) authentication.getPrincipal();
         Usuario usuario = usuarioService.findByEmail(userEmail).get();
         return UsuarioMapper.toUsuarioDTO(usuario, jwt);
+    }
+
+    @Transactional
+    public void sendCodeEmail(EmailDTO emailDTO) {
+        Usuario usuario = usuarioService.findByEmail(emailDTO.email())
+                .orElseThrow(() -> new ObjectNotFoundException(
+                        "El email " + emailDTO.email() + "  no se encontró en la base de datos.",
+                        "El email no está asociado a ninguna cuenta."));
+
+        String token = UUID.randomUUID().toString();
+        LocalDateTime fechaExpiracion = LocalDateTime.now().plusDays(1);
+
+        passwordResetTokenService.guardarToken(PasswordResetToken.builder().token(token).usuarioId(usuario.getId()).fechaExpiracion(fechaExpiracion).build());
+
+        String urlFront = "http://192.168.1.230:4200/auth/reset-password/";
+        String message = "Haz clic en el siguiente enlace para restablecer tu contraseña: " + urlFront + token;
+        emailService.sendCodeEmail(emailDTO.email(), "Código para reestablecer contraseña - EyeAlert", message);
     }
 }

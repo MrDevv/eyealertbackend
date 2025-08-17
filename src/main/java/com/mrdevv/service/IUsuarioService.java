@@ -13,7 +13,7 @@ public interface IUsuarioService {
 
     Usuario createUsuario(CreateUsuarioDTO usuarioDTO);
 
-    ResponseCodeDTO sendCodeEmail(EmailDTO emailDTO);
+//    ResponseCodeDTO sendCodeEmail(EmailDTO emailDTO);
 
     void updateEstadoCuestionarioCompletado(Long usuarioId);
 

@@ -1,9 +1,7 @@
 package com.mrdevv.controller;
 
 import com.mrdevv.payload.ResponseHandler;
-import com.mrdevv.payload.dto.usuario.AuthUsuarioDTO;
-import com.mrdevv.payload.dto.usuario.CreateUsuarioDTO;
-import com.mrdevv.payload.dto.usuario.ResponseUsuarioDTO;
+import com.mrdevv.payload.dto.usuario.*;
 import com.mrdevv.service.IUsuarioService;
 import com.mrdevv.service.auth.AuthenticationService;
 import com.mrdevv.utils.TipoResponse;
@@ -42,6 +40,12 @@ public class AuthController {
     public ResponseEntity<Object> validarToken(){
         ResponseUsuarioDTO usuarioDTO = authenticationService.validateToken();
         return ResponseHandler.get(TipoResponse.GET, "datos del usuario logeado", usuarioDTO);
+    }
+
+    @PostMapping("/recover-password")
+    public ResponseEntity<Object> enviarEmailRestablecerPassword(@RequestBody EmailDTO emailDTO){
+        authenticationService.sendCodeEmail(emailDTO);
+        return ResponseHandler.get(TipoResponse.GET, "se envió correctamente el enlace para reestablecer la contraseña al correo", null);
     }
 
 }

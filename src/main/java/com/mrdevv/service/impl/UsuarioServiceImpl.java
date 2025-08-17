@@ -67,19 +67,6 @@ public class UsuarioServiceImpl implements IUsuarioService {
         return usuario;
     }
 
-    @Override
-    public ResponseCodeDTO sendCodeEmail(EmailDTO emailDTO) {
-        Usuario usuario = usuarioRepository.findByEmail(emailDTO.email())
-                .orElseThrow(() -> new ObjectNotFoundException(
-                        "El email " + emailDTO.email() + "  no se encontró en la base de datos.",
-                        "El email no está asociado a ninguna cuenta."));
-
-        int code = (int) (Math.random() * 90000) + 100000;
-        String message = "Su código es: " + code;
-        emailService.sendCodeEmail(emailDTO.email(), "Código para reestablecer contraseña - EyeAlert", message);
-        return new ResponseCodeDTO(code, usuario.getId());
-    }
-
     @Transactional
     @Override
     public void updateEstadoCuestionarioCompletado(Long usuarioId) {

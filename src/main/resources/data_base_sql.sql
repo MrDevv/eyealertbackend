@@ -126,3 +126,13 @@ create table mae_respuestas_quizz(
     primary key(respuesta_quizz_id),
     foreign key(pregunta_quizz_id) references mae_preguntas_quizz(pregunta_quizz_id)
 )
+
+create table password_reset_token(
+    token_id int not null auto_increment,
+    token varchar(255) not null,
+    usuario_id int not null,
+    fecha_creacion datetime not null default current_timestamp,
+    fecha_expiracion datetime not null,
+    estado varchar(50) not null default 'pendiente',
+    primary key(token_id)
+)
