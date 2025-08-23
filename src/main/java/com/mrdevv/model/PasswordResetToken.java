@@ -20,6 +20,7 @@ public class PasswordResetToken {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "token_id")
     Long id;
 
     String token;
@@ -32,7 +33,4 @@ public class PasswordResetToken {
 
     @Column(name = "fecha_expiracion")
     LocalDateTime fechaExpiracion;
-
-    @Builder.Default
-    String estado = "pendiente";
 }

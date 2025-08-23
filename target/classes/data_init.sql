@@ -87,5 +87,9 @@ INSERT INTO mae_datos_informativos(titulo, descripcion, fuente, fuente_multimedi
     ("Centros oftalmlógicos", "En el Perú existen centros oftalmológicos que ofrecen servicios gratuitos mediante el Seguro Integral de Salud (SIS), donde se puede tratar el glaucoma y otras patologías del ojo. El Instituto Nacional de Oftalmología (INO) y otros hospitales del Ministerio de Salud (MINSA) como Arzobispo Loayza y Daniel Alcides Carrión. Asimismo, el Instituo Regional de Oftalmología (IRO) en Trujillo es un centro especializado donde se puede tratar la enfermedad.",
     "https://www.gob.pe/14957-solicitar-servicios-de-oftalmologia-en-establecimientos-de-salud-en-el-peru",
     "");
-    
-									
+
+-- evento para eliminar tokens vencidos
+CREATE EVENT IF NOT EXISTS eliminar_tokens_vencidos
+ON SCHEDULE EVERY 1 DAY
+DO
+    select * FROM password_reset_token where now() >= fecha_expiracion

@@ -133,6 +133,5 @@ create table password_reset_token(
     usuario_id int not null,
     fecha_creacion datetime not null default current_timestamp,
     fecha_expiracion datetime not null,
-    estado varchar(50) not null default 'pendiente',
     primary key(token_id)
 )

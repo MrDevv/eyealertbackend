@@ -45,7 +45,12 @@ public class AuthController {
     @PostMapping("/recover-password")
     public ResponseEntity<Object> enviarEmailRestablecerPassword(@RequestBody EmailDTO emailDTO){
         authenticationService.sendCodeEmail(emailDTO);
-        return ResponseHandler.get(TipoResponse.GET, "se envió correctamente el enlace para reestablecer la contraseña al correo", null);
+        return ResponseHandler.get(TipoResponse.GET, "se envió correctamente el enlace para restablecer la contraseña al correo", null);
     }
 
+    @PatchMapping("/reset-password")
+    public ResponseEntity<Object> resetPassword(@RequestBody ResetPasswordDTO resetPasswordDTO){
+        authenticationService.resetPassword(resetPasswordDTO);
+        return ResponseHandler.get(TipoResponse.PATCH, "se restableció correctamente la contraseña", null);
+    }
 }

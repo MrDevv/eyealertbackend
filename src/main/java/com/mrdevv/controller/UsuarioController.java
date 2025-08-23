@@ -86,12 +86,12 @@ public class UsuarioController {
         return ResponseHandler.get(TipoResponse.PATCH, "contraseña actualizada correctamente", null);
     }
 
-    @PatchMapping("/{id}/reset-password")
-    public ResponseEntity<Object> reestablecerPassword(@RequestBody ResetPasswordDTO updatePasswordDTO, @PathVariable(name = "id") Long idUsuario){
-        System.out.println(idUsuario);
-        System.out.println(updatePasswordDTO.newPassword());
-        usuarioService.resetPassword(updatePasswordDTO.newPassword(), idUsuario);
-        return ResponseHandler.get(TipoResponse.PATCH, "se actualizó correctamente la contraseña del usuario", null);
-    }
+//    @PatchMapping("/{id}/reset-password")
+//    public ResponseEntity<Object> reestablecerPassword(@RequestBody ResetPasswordDTO updatePasswordDTO, @PathVariable(name = "id") Long idUsuario){
+//        System.out.println(idUsuario);
+//        System.out.println(updatePasswordDTO.newPassword());
+//        usuarioService.resetPassword(updatePasswordDTO.newPassword(), idUsuario);
+//        return ResponseHandler.get(TipoResponse.PATCH, "se actualizó correctamente la contraseña del usuario", null);
+//    }
 
 }

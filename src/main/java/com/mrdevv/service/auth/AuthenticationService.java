@@ -5,11 +5,13 @@ import com.mrdevv.model.PasswordResetToken;
 import com.mrdevv.model.Usuario;
 import com.mrdevv.payload.dto.usuario.*;
 import com.mrdevv.payload.mapper.UsuarioMapper;
+import com.mrdevv.repository.PasswordResetTokenRepository;
 import com.mrdevv.service.IEmailService;
 import com.mrdevv.service.IPasswordResetTokenService;
 import com.mrdevv.service.IUsuarioService;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.Valid;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -23,25 +25,17 @@ import java.time.LocalDateTime;
 import java.util.UUID;
 
 @Service
+@RequiredArgsConstructor
 public class AuthenticationService {
 
-    private AuthenticationManager authenticationManager;
-    private IUsuarioService usuarioService;
-    private IEmailService emailService;
-    private IPasswordResetTokenService passwordResetTokenService;
-    private JwtService jwtService;
+    private final AuthenticationManager authenticationManager;
+    private final IUsuarioService usuarioService;
+    private final IEmailService emailService;
+    private final IPasswordResetTokenService passwordResetTokenService;
+    private final JwtService jwtService;
+    private final PasswordResetTokenRepository passwordResetTokenRepository;
 
-    private HttpServletRequest httpServletRequest;
-
-    @Autowired
-    public AuthenticationService(AuthenticationManager authenticationManager, IUsuarioService usuarioService, JwtService jwtService, HttpServletRequest httpServletRequest, IEmailService emailService, IPasswordResetTokenService passwordResetTokenService){
-        this.authenticationManager = authenticationManager;
-        this.usuarioService = usuarioService;
-        this.jwtService = jwtService;
-        this.httpServletRequest = httpServletRequest;
-        this.emailService = emailService;
-        this.passwordResetTokenService = passwordResetTokenService;
-    }
+    private final HttpServletRequest httpServletRequest;
 
     public ResponseUsuarioDTO login(@Valid AuthUsuarioDTO authUsuarioDTO){
         Authentication authentication = new UsernamePasswordAuthenticationToken(
@@ -88,5 +82,23 @@ public class AuthenticationService {
         String urlFront = "http://192.168.1.230:4200/auth/reset-password/";
         String message = "Haz clic en el siguiente enlace para restablecer tu contraseña: " + urlFront + token;
         emailService.sendCodeEmail(emailDTO.email(), "Código para reestablecer contraseña - EyeAlert", message);
+    }
+
+    @Transactional
+    public void resetPassword(ResetPasswordDTO resetPasswordDTO){
+        PasswordResetToken token = passwordResetTokenRepository.findByToken(resetPasswordDTO.token()).orElseThrow( () ->
+                new ObjectNotFoundException(
+                        "No se encontró el objeto PasswordResetToken en la base de datos",
+                        "El token para restablecer la contraseña no es válido o ha vencido")
+        );
+
+        if (token.getFechaExpiracion().isBefore(LocalDateTime.now())){
+            throw new ObjectNotFoundException(
+                    "La fecha de expiración del campo token es mayor a la fecha actual",
+                    "El token para restablecer la contraseña ha vencido");
+        }
+
+        usuarioService.resetPassword(resetPasswordDTO.newPassword(), token.getUsuarioId());
+        passwordResetTokenRepository.deleteById(token.getId());
     }
 }

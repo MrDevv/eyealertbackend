@@ -117,7 +117,7 @@ public class UsuarioServiceImpl implements IUsuarioService {
     @Transactional
     @Override
     public void resetPassword(String newPassword, Long usuarioId) {
-        usuarioRepository.updatePassword(newPassword, usuarioId);
+        usuarioRepository.updatePassword(passwordEncoder.encode(newPassword), usuarioId);
     }
 
     @Override

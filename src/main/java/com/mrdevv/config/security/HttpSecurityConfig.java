@@ -83,6 +83,7 @@ public class HttpSecurityConfig {
             authHttpRequests.requestMatchers(HttpMethod.POST, "/auth/login").permitAll();
             authHttpRequests.requestMatchers(HttpMethod.POST, "/auth/create-usuario").permitAll();
             authHttpRequests.requestMatchers(HttpMethod.POST, "/auth/recover-password").permitAll();
+            authHttpRequests.requestMatchers(HttpMethod.PATCH, "/auth/reset-password").permitAll();
 
             authHttpRequests.anyRequest().authenticated();
         };
