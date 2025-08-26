@@ -4,7 +4,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 public record ResetPasswordDTO(
         String token,
-        @JsonProperty("new-password")
+        @JsonProperty("new_password")
         String newPassword
 ) {
 }
