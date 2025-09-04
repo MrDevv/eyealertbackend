@@ -124,7 +124,7 @@ public class UsuarioServiceImpl implements IUsuarioService {
     public void existsByEmail(String email) {
         if (usuarioRepository.existsByEmail(email)) {
             throw new ObjectDuplicateException(
-                    "El usuario con email " + email + " ya se encuentra registrado.",
+                    "El email " + email + " ya se encuentra asociado a otra cuenta.",
                     "Entrada duplicada " + email + " para la llave mae_usuario.EMAIL."
             );
         }
