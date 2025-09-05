@@ -2,18 +2,18 @@ INSERT INTO mae_roles(descripcion) VALUES("administrador"), ("usuario");
 
 INSERT INTO mae_respuestas(descripcion) VALUES("Sí"), ("No"), ("Masculino"), ("Femenino");
 
-INSERT INTO mae_usuarios(nombres, apellidos, email, password, rol_id) values("Miguel Angel", "Vega Perez", "miguelvegap10@gmail.com", "1234", 1);
+INSERT INTO mae_usuarios(nombres, apellidos, email, password, rol_id) values("Miguel Angel", "Vega Perez", "miguelvegap10@gmail.com", "$2a$10$VPSUYzkb8NIhMSaXcPVsQec88rj0drU8L/AH2Ho09PkVSyzt6LNYC", 1);
 
 INSERT INTO config_cuestionario(dias_espera) VALUES(7);
 
-INSERT INTO mae_preguntas(descripcion) VALUES
-	("Ingresa tu edad"),
-    ("Selecciona tu genero"),
-    ("¿Te han diagnosticado con presión intraocular (PIO) elevada?"),
-    ("¿Tus padres (mamá o papá) fueron diagnosticados con glaucoma?"),
-    ("¿Has sido diagnosticado con diabetes mellitus?"),
-    ("¿Has sido diagnosticado con hipertesión arterial?"),
-    ("¿Has sido diagnosticado con catarata?");
+INSERT INTO mae_preguntas(descripcion, tipo, nombre) VALUES
+	("Ingresa tu edad", "abierta", "edad"),
+    ("Selecciona tu genero", "cerrada", "genero"),
+    ("¿Te han diagnosticado con presión intraocular (PIO) elevada?", "cerrada", "pio"),
+    ("¿Tus padres (mamá o papá) fueron diagnosticados con glaucoma?", "cerrada", "historial familiar"),
+    ("¿Has sido diagnosticado con diabetes mellitus?", "cerrada", "diabetes"),
+    ("¿Has sido diagnosticado con hipertesión arterial?", "cerrada", "hipertension"),
+    ("¿Has sido diagnosticado con catarata?", "cerrada", "catarata");
     
 INSERT INTO trs_pregunta_detalle VALUES(2, 3), (2, 4),
 										(3, 1), (3, 2),

@@ -10,7 +10,7 @@ create table mae_usuarios (
     nombres varchar(100) not null,
     apellidos varchar(100) not null,
     email varchar(255) not null unique,
-    password varchar(50) not null,
+    password longtext not null,
     cuestionario_conocimientos_completado tinyint(1) not null default 0,
     rol_id int not null,
 	fecha datetime not null default current_timestamp,

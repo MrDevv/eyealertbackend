@@ -22,7 +22,7 @@ public interface QuizzRepository extends JpaRepository<Quizz, Long> {
     Object obtenerPuntajeQuizzesUsuario(@Param("usuario_id") Long usuarioId);
 
     @Query(value = "select " +
-            "rank() over(order by q.puntaje desc, q.fecha asc) puesto, " +
+            "rank() over(order by max(q.puntaje) desc, min(q.fecha) asc) puesto, " +
             "u.usuario_id, " +
             "u.nombres, " +
             "u.apellidos, " +
@@ -31,14 +31,14 @@ public interface QuizzRepository extends JpaRepository<Quizz, Long> {
             "inner join mae_usuarios u on q.usuario_id = u.usuario_id " +
             "where month(q.fecha) = month(current_date) " +
             "and year(q.fecha) = year(current_date) " +
-            "group by u.usuario_id " +
-            "order by q.puntaje desc, q.fecha asc " +
+            "group by u.usuario_id, u.nombres, u.apellidos " +
+            "order by max(q.puntaje) desc, min(q.fecha) asc " +
             "limit 5", nativeQuery = true)
     List<Object> obtenerRankingLimit5();
 
     @Query(value = "with puntajes as ( " +
             "select " +
-            "rank() over(order by q.puntaje desc, q.fecha asc) puesto, " +
+            "rank() over(order by max(q.puntaje) desc, min(q.fecha) asc) puesto, " +
             "u.usuario_id, " +
             "u.email, " +
             "u.nombres, " +
@@ -47,8 +47,8 @@ public interface QuizzRepository extends JpaRepository<Quizz, Long> {
             "inner join mae_usuarios u on q.usuario_id = u.usuario_id " +
             "where month(q.fecha) = month(current_date) " +
             "and year(q.fecha) = year(current_date) " +
-            "group by u.usuario_id " +
-            "order by q.puntaje desc, q.fecha asc " +
+            "group by u.usuario_id, u.nombres, u.apellidos " +
+            "order by max(q.puntaje) desc, min(q.fecha) asc " +
             ") " +
             "select puesto, usuario_id, nombres, apellidos from puntajes where email = :email", nativeQuery = true)
     Object obtenerPuestoActualUsuario(@Param(value = "email") String email);
