@@ -79,7 +79,7 @@ public class AuthenticationService {
 
         passwordResetTokenService.guardarToken(PasswordResetToken.builder().token(token).usuarioId(usuario.getId()).fechaExpiracion(fechaExpiracion).build());
 
-        String urlFront = "http://192.168.1.230:4200/auth/reset-password/";
+        String urlFront = "https://eyealert.netlify.app/auth/reset-password/";
         String message = "Haz clic en el siguiente enlace para restablecer tu contraseña: " + urlFront + token;
         emailService.sendCodeEmail(emailDTO.email(), "Código para reestablecer contraseña - EyeAlert", message);
     }
