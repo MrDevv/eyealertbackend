@@ -4,6 +4,7 @@ import com.mrdevv.model.RespuestaQuizz;
 import com.mrdevv.payload.dto.quizz.ResponseRespuestaQuizz;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class RespuestaQuizzMapper {
 
@@ -15,6 +16,6 @@ public class RespuestaQuizzMapper {
                     respuestaQuizz.getExplicacion(),
                     respuestaQuizz.getEsCorrecta()
             );
-        }).toList();
+        }).collect(Collectors.toList());
     }
 }
