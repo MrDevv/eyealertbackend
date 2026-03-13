@@ -46,6 +46,7 @@ Para ejecutar el proyecto es necesario configurar las siguientes variables de en
 | DB_PASSWORD | Contraseña de la base de datos |
 | EMAIL | Cuenta de correo utilizada para enviar correos |
 | EMAIL_PASSWORD | Contraseña de aplicación del correo |
+| JWT_SECRET_KEY | Clave secreta utilizada para firmar los tokens JWT |
 
 Ejemplo:
 
@@ -55,6 +56,7 @@ DB_USER_NAME=root
 DB_PASSWORD=123456
 EMAIL=tu_correo@gmail.com
 EMAIL_PASSWORD=clave_de_aplicacion
+JWT_SECRET_KEY=clave_secreta_para_jwt
 ```
 
 ---
