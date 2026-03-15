@@ -87,6 +87,8 @@ EMAIL_PASSWORD
 No usar la contraseña normal de Gmail.
 
 ---
+## Diagrama Entidad Relación
+![ER](src/main/resources/ER.png)
 
 ## Creación de la base de datos
 
