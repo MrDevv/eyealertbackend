@@ -107,7 +107,7 @@ create table trs_quizzes(
     fecha datetime not null default current_timestamp,
     primary key(quizz_id),
     foreign key(usuario_id) references mae_usuarios(usuario_id)
-)
+);
 
 create table mae_preguntas_quizz(
     pregunta_quizz_id int not null auto_increment,
@@ -115,7 +115,7 @@ create table mae_preguntas_quizz(
     categoria varchar(100) not null,
     estado tinyint(1) not null default 1,
     primary key(pregunta_quizz_id)
-)
+);
 
 create table mae_respuestas_quizz(
     respuesta_quizz_id int not null auto_increment,
@@ -125,7 +125,7 @@ create table mae_respuestas_quizz(
     pregunta_quizz_id int not null,
     primary key(respuesta_quizz_id),
     foreign key(pregunta_quizz_id) references mae_preguntas_quizz(pregunta_quizz_id)
-)
+);
 
 create table password_reset_token(
     token_id int not null auto_increment,
@@ -134,4 +134,4 @@ create table password_reset_token(
     fecha_creacion datetime not null default current_timestamp,
     fecha_expiracion datetime not null,
     primary key(token_id)
-)
+);
